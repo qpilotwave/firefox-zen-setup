@@ -3,6 +3,7 @@
    ================================================================
    Auto-hide the native vertical tab sidebar. Collapses to a thin
    strip; expands on hover. Independent from navbar.
+   Vertical tabs are LOCKED to the LEFT side.
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
@@ -15,6 +16,8 @@
       position: absolute !important;
       top: 0;
       bottom: 0;
+      left: 0 !important;
+      right: auto !important;
       z-index: 1000 !important;
       background: var(--zen-bg-base) !important;
       opacity: 1 !important;
@@ -22,25 +25,12 @@
       width: var(--zen-tabbar-collapsed) !important;
       min-width: var(--zen-tabbar-collapsed) !important;
       max-width: var(--zen-tabbar-collapsed) !important;
+      border-right: 1px solid var(--zen-border) !important;
       transition:
         width var(--zen-transition) var(--zen-hide-delay),
         min-width var(--zen-transition) var(--zen-hide-delay),
         max-width var(--zen-transition) var(--zen-hide-delay) !important;
       overflow: hidden !important;
-    }
-
-    /* Left-positioned sidebar */
-    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main:not([sidebar-positionend=""])) #sidebar-main {
-      left: 0 !important;
-      right: auto !important;
-      border-right: 1px solid var(--zen-border) !important;
-    }
-
-    /* Right-positioned sidebar */
-    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main[sidebar-positionend=""]) #sidebar-main {
-      right: 0 !important;
-      left: auto !important;
-      border-left: 1px solid var(--zen-border) !important;
     }
 
     /* --- Expand on hover (sidebar itself) --- */
@@ -55,11 +45,6 @@
       max-width: var(--zen-tabbar-width) !important;
       transition-delay: var(--zen-show-delay) !important;
       box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
-    }
-
-    /* Right-side shadow */
-    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main[sidebar-positionend=""]):has(#sidebar-main:hover) #sidebar-main {
-      box-shadow: -4px 0 16px rgba(0,0,0,0.5) !important;
     }
 
     /* --- Hide the native splitter --- */
@@ -81,17 +66,14 @@
   @media -moz-pref("zen.mode.full") {
     #sidebar-main {
       position: relative !important;
+      left: 0 !important;
+      right: auto !important;
       width: var(--zen-tabbar-width) !important;
       min-width: var(--zen-tabbar-width) !important;
       max-width: var(--zen-tabbar-width) !important;
       background: var(--zen-bg-base) !important;
       z-index: 1000 !important;
-    }
-    #main-window:has(#sidebar-main:not([sidebar-positionend=""])) #sidebar-main {
       border-right: 1px solid var(--zen-border) !important;
-    }
-    #main-window:has(#sidebar-main[sidebar-positionend=""]) #sidebar-main {
-      border-left: 1px solid var(--zen-border) !important;
     }
   }
 

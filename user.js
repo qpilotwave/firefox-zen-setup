@@ -99,6 +99,7 @@ user_pref("browser.safebrowsing.downloads.remote.url", "");
 /*** [SECTION 0500]: NATIVE VERTICAL TABS & SIDEBAR (FF136+) ***/
 user_pref("sidebar.revamp", true);
 user_pref("sidebar.revamp.defaultLauncherVisible", false);
+user_pref("sidebar.position_start", false);
 user_pref("sidebar.visibility", "always-show");
 user_pref("sidebar.main.tools", "history,bookmarks");
 user_pref("browser.sidebar.useCurrentTab", true);

@@ -72,3 +72,36 @@ body {
   margin-inline: 0px !important;
   padding-inline: 0px !important;
 }
+
+/* --- Standard sidebar (History/Bookmarks) overlay style ---
+   Only applies when sidebar is actually open (checked="true") */
+#sidebar-box[checked="true"][sidebar-positionend=""] {
+  position: absolute !important;
+  right: 0 !important;
+  left: auto !important;
+  top: 0;
+  bottom: 0;
+  z-index: 998 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-left: 1px solid var(--zen-border) !important;
+  background: var(--zen-bg-base) !important;
+}
+
+#sidebar-box[checked="true"]:not([sidebar-positionend=""]) {
+  position: absolute !important;
+  left: 0 !important;
+  right: auto !important;
+  top: 0;
+  bottom: 0;
+  z-index: 998 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-right: 1px solid var(--zen-border) !important;
+  background: var(--zen-bg-base) !important;
+}
+
+/* Hide the sidebar splitter to prevent resizing interference */
+#sidebar-splitter {
+  display: none !important;
+}

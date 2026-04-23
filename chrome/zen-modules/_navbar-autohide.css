@@ -3,8 +3,8 @@
    ================================================================
    Compact mode: slides up out of view, shows on top-edge hover.
    Full mode: always visible.
-   URL bar popover is explicitly hidden when navbar is hidden
-   (top-layer elements escape parent opacity/visibility).
+   Uses "top" positioning (not transform) so ::after hover zone
+   stays at the viewport edge and focus events work.
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
@@ -12,63 +12,62 @@
 
   #main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
+    /* Enforce fixed height so we can position precisely */
+    #navigator-toolbox {
+      height: var(--zen-navbar-height) !important;
+      min-height: var(--zen-navbar-height) !important;
+      max-height: var(--zen-navbar-height) !important;
+    }
+
     /* --- Position toolbox absolutely at top --- */
     #navigator-toolbox {
       position: absolute !important;
-      top: 0;
       left: 0;
       right: 0;
+      /* Hidden: moved up by exactly its height (+1px buffer) */
+      top: calc(-1 * var(--zen-navbar-height) - 1px);
       z-index: 999 !important;
       background: var(--zen-bg-base) !important;
       border-bottom: 1px solid var(--zen-border) !important;
       box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
-      /* Fully hidden */
-      transform: translateY(-120%);
+      /* Invisible but still in document flow for hover/focus */
       opacity: 0;
-      visibility: hidden;
       transition:
-        transform var(--zen-transition) var(--zen-hide-delay),
-        opacity var(--zen-transition) var(--zen-hide-delay),
-        visibility 0ms linear var(--zen-hide-delay) !important;
-      pointer-events: none;
+        top var(--zen-transition) var(--zen-hide-delay),
+        opacity var(--zen-transition) var(--zen-hide-delay) !important;
     }
 
     /* --- Show navbar on hover / focus --- */
     #navigator-toolbox:hover,
     #navigator-toolbox:focus-within,
     #navigator-toolbox[movingtab] {
-      transform: translateY(0);
+      top: 0;
       opacity: 1;
-      visibility: visible;
       transition-delay: var(--zen-show-delay) !important;
-      pointer-events: auto;
     }
 
-    /* --- Hover zone: strip at top edge to trigger navbar --- */
+    /* --- Hover zone: strip at top edge to trigger navbar ---
+       The pseudo-element extends downward from the hidden navbar's
+       bottom edge (which sits at y ≈ -1px) into the viewport. */
     #navigator-toolbox::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      height: 10px;
+      height: 12px;
       background: transparent;
       top: 100%;
       pointer-events: auto;
     }
 
-    /* --- Explicitly hide urlbar popover when toolbox is hidden ---
-       Top-layer popovers escape parent opacity/visibility.
-       We MUST hide them explicitly. */
-    #navigator-toolbox:not(:hover,:focus-within,[movingtab]) :is(#urlbar,.urlbar,#searchbar-new)[popover] {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      visibility: hidden !important;
-      transition: opacity 0ms linear, visibility 0ms linear !important;
-    }
-
-    /* Also hide the non-popover urlbar container */
-    #navigator-toolbox:not(:hover,:focus-within,[movingtab]) #urlbar-container {
-      opacity: 0 !important;
+    /* --- Show navbar when URL bar is focused (Ctrl+L) --- */
+    &:has(#urlbar[focused="true"]),
+    &:has(#urlbar[breakout-extend="true"]) {
+      #navigator-toolbox {
+        top: 0;
+        opacity: 1;
+        transition-delay: var(--zen-show-delay) !important;
+      }
     }
 
     /* --- Keep navbar visible when menus/popups are open --- */
@@ -83,20 +82,9 @@
     &:has(#protections-popup[panelopen="true"]),
     &:has(panel[id*="_-panel"][panelopen="true"]) {
       #navigator-toolbox {
-        transform: translateY(0);
+        top: 0;
         opacity: 1;
-        visibility: visible;
         transition-delay: var(--zen-show-delay) !important;
-        pointer-events: auto;
-      }
-      /* Restore urlbar */
-      #navigator-toolbox :is(#urlbar,.urlbar,#searchbar-new)[popover] {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        visibility: visible !important;
-      }
-      #navigator-toolbox #urlbar-container {
-        opacity: 1 !important;
       }
     }
 
@@ -123,10 +111,8 @@
 @media -moz-pref("zen.mode.full") {
   #navigator-toolbox {
     position: relative !important;
-    transform: none !important;
+    top: 0 !important;
     opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
     background: var(--zen-bg-base) !important;
     border-bottom: 1px solid var(--zen-border) !important;
   }
@@ -135,8 +121,6 @@
 /* ===== CUSTOMIZING MODE: always show ===== */
 :root[customizing] #navigator-toolbox {
   position: relative !important;
-  transform: none !important;
+  top: 0 !important;
   opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
 }
