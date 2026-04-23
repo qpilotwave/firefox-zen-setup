@@ -23,11 +23,13 @@
     border-bottom: 1px solid var(--zen-border) !important;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
     /* Slide up when not hovered/focused */
-    transform: translateY(calc(-1 * var(--zen-navbar-height) - 2px));
+    transform: translateY(-120%);
     opacity: 0;
+    visibility: hidden;
     transition:
       transform var(--zen-transition) var(--zen-hide-delay),
-      opacity var(--zen-transition) var(--zen-hide-delay) !important;
+      opacity var(--zen-transition) var(--zen-hide-delay),
+      visibility 0ms linear var(--zen-hide-delay) !important;
     pointer-events: none;
   }
 
@@ -37,6 +39,7 @@
   #navigator-toolbox[movingtab] {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
     transition-delay: var(--zen-show-delay) !important;
     pointer-events: auto;
   }
@@ -49,7 +52,7 @@
     right: 0;
     height: 8px;
     background: transparent;
-    top: var(--zen-navbar-height);
+    top: 100%;
     pointer-events: auto;
   }
 
@@ -61,8 +64,15 @@
     right: 0;
     height: 4px;
     background: transparent;
-    top: var(--zen-navbar-height);
+    top: 100%;
     pointer-events: auto;
+  }
+
+  /* --- Explicitly hide urlbar popover when toolbox is hidden --- */
+  #navigator-toolbox:not(:hover,:focus-within,[movingtab]) :is(#urlbar,#urlbar[popover],.urlbar) {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0ms linear var(--zen-hide-delay) !important;
   }
 
   /* --- Keep navbar visible when menus/popups are open --- */
@@ -79,8 +89,14 @@
     #navigator-toolbox {
       transform: translateY(0);
       opacity: 1;
+      visibility: visible;
       transition-delay: var(--zen-show-delay) !important;
       pointer-events: auto;
+    }
+    /* Also show urlbar popover */
+    #navigator-toolbox :is(#urlbar,#urlbar[popover],.urlbar) {
+      opacity: 1 !important;
+      pointer-events: auto !important;
     }
   }
 
@@ -89,6 +105,7 @@
   &:has(#urlbar[open="true"]) #navigator-toolbox {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
     transition-delay: var(--zen-show-delay) !important;
     pointer-events: auto;
   }
@@ -104,9 +121,6 @@
   #nav-bar .toolbarbutton-1 {
     margin-top: 2px !important;
   }
-
-  /* --- Content shift: no shift needed since navbar overlays --- */
-  /* The navbar is absolutely positioned so content stays at top */
 }
 
 /* --- Customizing mode: show navbar normally --- */
@@ -114,6 +128,7 @@
   position: relative !important;
   transform: none !important;
   opacity: 1 !important;
+  visibility: visible !important;
   pointer-events: auto !important;
 }
 

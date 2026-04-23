@@ -89,17 +89,9 @@
     background-color: var(--zen-bg-elevated) !important;
   }
 
-  /* --- Content margin when sidebar is visible --- */
+  /* --- Content margin: ZERO — sidebar overlays content --- */
   #main-window:not([inDOMFullscreen="true"]) #tabbrowser-tabbox {
-    margin-inline-start: var(--zen-tabbar-collapsed) !important;
-    transition: margin-inline-start var(--zen-transition) var(--zen-hide-delay) !important;
-  }
-
-  #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #tabbrowser-tabbox,
-  #main-window:not([inDOMFullscreen="true"]):has(#navigator-toolbox:hover) #tabbrowser-tabbox,
-  #main-window:not([inDOMFullscreen="true"]):has(#navigator-toolbox:focus-within) #tabbrowser-tabbox {
-    margin-inline-start: var(--zen-tabbar-width) !important;
-    transition-delay: var(--zen-show-delay) !important;
+    margin-inline-start: 0px !important;
   }
 
   /* --- Fullscreen: completely hide sidebar --- */
