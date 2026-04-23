@@ -4,20 +4,19 @@
    Minimal Zen/Arc-inspired Firefox UI.
 
    Features:
-     - Native vertical tabs with auto-hide (compact mode)
+     - Native vertical tabs on the left
      - Navbar auto-hide with top-edge hover zone
      - Dark theme everywhere (UI + websites)
      - Sidebar separator
      - Rounded content frame
-     - Compact/Full mode toggle via Userchrome Toggle Extended
+     - Compact/Full mode toggle via native sidebar visibility
 
    To toggle mode:
-     1. Install "Userchrome Toggle Extended" extension (auto-installed via policy)
-     2. Press Ctrl+Shift+1 or click the toolbar button
-     3. Style 1 ON = Compact (tabbar+navbar autohide), OFF = Full (always visible)
+     - Press Ctrl+Alt+Z or click the sidebar toolbar button
+     - Sidebar visible  = Full mode  (tabbar + navbar always visible)
+     - Sidebar hidden   = Compact mode (no tabbar, navbar autohides)
 
-   Compact mode (default): tabbar + navbar auto-hide independently
-   Full mode: both tabbar and navbar always visible
+   Standard sidebar (History/Bookmarks) is forced to the right via CSS.
 
    To enable CSS: toolkit.legacyUserProfileCustomizations.stylesheets = true
    ================================================================ */

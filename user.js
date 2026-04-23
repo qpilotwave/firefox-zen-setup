@@ -99,7 +99,7 @@ user_pref("browser.safebrowsing.downloads.remote.url", "");
 /*** [SECTION 0500]: NATIVE VERTICAL TABS & SIDEBAR (FF136+) ***/
 user_pref("sidebar.revamp", true);
 user_pref("sidebar.revamp.defaultLauncherVisible", false);
-user_pref("sidebar.position_start", false);
+user_pref("sidebar.position_start", true);
 user_pref("sidebar.visibility", "always-show");
 user_pref("sidebar.main.tools", "history,bookmarks");
 user_pref("browser.sidebar.useCurrentTab", true);
@@ -367,10 +367,10 @@ user_pref("browser.tabs.groups.smart.enabled", false);
 /* Disable experiments */
 user_pref("browser.experiments.active", false);
 
-/* Zen UI mode is now controlled by Userchrome Toggle Extended extension.
-   Style 1 (default: ON) = Compact mode (tabbar+navbar autohide)
-   Toggle with Ctrl+Shift+1 or the toolbar button.
-   The extension is auto-installed via enterprise policy. */
+/* Zen UI mode is controlled by native sidebar visibility.
+   Full mode:    sidebar visible  (Ctrl+Alt*Z or sidebar button)
+   Compact mode: sidebar hidden   (same toggle)
+   Compact mode hides the tabbar natively and autohides the navbar. */
 
 /* Dark mode everywhere (UI + websites) */
 user_pref("layout.css.prefers-color-scheme.content-override", 0);

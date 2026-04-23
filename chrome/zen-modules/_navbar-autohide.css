@@ -1,16 +1,17 @@
 /* ================================================================
    ZEN-MODE NAVBAR
    ================================================================
-   Compact mode: slides up out of view, shows on top-edge hover.
-   Full mode: always visible.
+   Compact mode: sidebar hidden → navbar slides up, shows on hover.
+   Full mode:    sidebar visible → navbar always visible.
    Uses "top" positioning (not transform) so ::after hover zone
    stays at the viewport edge and focus events work.
+   Toggle: native sidebar button or Ctrl+Alt+Z
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
-/* Triggered by Userchrome Toggle Extended Style 1 (default: ON) */
+/* Triggered when sidebar is hidden (native collapse) */
 
-#main-window[titlepreface*="᠎"]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+#main-window:not(:has(#sidebar-main:not([hidden]))):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -102,12 +103,12 @@
 }
 
 /* --- Fullscreen: fixed position --- */
-#main-window[titlepreface*="᠎"][inFullscreen="true"] #navigator-toolbox {
+#main-window:not(:has(#sidebar-main:not([hidden])))[inFullscreen="true"] #navigator-toolbox {
   position: fixed !important;
 }
 
 /* ===== FULL MODE: navbar always visible ===== */
-#main-window:not([titlepreface*="᠎"]) #navigator-toolbox {
+#main-window:has(#sidebar-main:not([hidden])) #navigator-toolbox {
   position: relative !important;
   top: 0 !important;
   opacity: 1 !important;
