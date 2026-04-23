@@ -1,7 +1,5 @@
 /* ================================================================
    ZEN-MODE BASE
-   ================================================================
-   Global resets, hide bloat UI elements, set main window dark.
    ================================================================ */
 
 /* --- Main Window Dark Background --- */
@@ -31,9 +29,16 @@ body {
   display: none !important;
 }
 
-/* Hide bookmark bar by default */
+/* Hide bookmark bar */
 #PersonalToolbar {
   display: none !important;
+}
+
+/* --- Hide horizontal tab bar when native vertical tabs are on --- */
+@media -moz-pref("sidebar.verticalTabs") {
+  #TabsToolbar {
+    display: none !important;
+  }
 }
 
 /* --- Notification Deck Positioning --- */
@@ -56,4 +61,14 @@ body {
   max-width: 0.1px !important;
   min-width: 0.1px !important;
   visibility: collapse !important;
+}
+
+/* --- Ensure no content shift from any sidebar --- */
+#browser {
+  padding-inline: 0px !important;
+}
+
+#tabbrowser-tabbox {
+  margin-inline: 0px !important;
+  padding-inline: 0px !important;
 }

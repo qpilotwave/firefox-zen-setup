@@ -1,8 +1,5 @@
 /* ================================================================
    ZEN-MODE VARIABLES
-   ================================================================
-   Color palette, dimensions, and animation timing for the
-   Zen/Arc-inspired minimal Firefox UI.
    ================================================================ */
 
 :root {
@@ -28,13 +25,13 @@
   --zen-border-radius:     10px;
   --zen-content-margin:    6px;
 
-  /* --- Timing --- */
-  --zen-hide-delay:    400ms;
+  /* --- Timing: FAST (≈5× faster than before) --- */
+  --zen-hide-delay:    80ms;
   --zen-show-delay:    0ms;
-  --zen-transition:    250ms ease;
+  --zen-transition:    50ms ease;
 }
 
-/* Force dark color scheme for Firefox UI */
+/* Force dark color scheme for Firefox UI and websites */
 @media (prefers-color-scheme: light) {
   :root {
     --zen-bg-darkest:   #050505;

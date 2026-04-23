@@ -1,33 +1,18 @@
 /* ================================================================
    ZEN-MODE CONTENT FRAME
-   ================================================================
-   Rounded frame around web content, giving a bordered "app"
-   feel like Arc or Zen browser.
    ================================================================ */
 
-/* --- Content outline / frame --- */
 #main-window #tabbrowser-tabpanels browser[type] {
   margin: var(--zen-content-margin) !important;
   border-radius: var(--zen-border-radius) !important;
-  outline: none !important;
-  box-shadow: none !important;
 }
 
-/* --- In fullscreen: no margins, no radius --- */
 #main-window[inDOMFullscreen="true"] #tabbrowser-tabpanels browser[type],
 #main-window[inFullscreen="true"] #tabbrowser-tabpanels browser[type] {
   margin: 0 !important;
   border-radius: 0 !important;
 }
 
-/* --- Tab panels background --- */
 #tabbrowser-tabpanels {
   background: transparent !important;
-  border-radius: var(--zen-border-radius) !important;
-}
-
-/* --- Browser stack background --- */
-.browserStack {
-  background: var(--zen-bg-darkest) !important;
-  border-radius: var(--zen-border-radius) !important;
 }

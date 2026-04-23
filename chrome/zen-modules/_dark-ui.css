@@ -1,24 +1,18 @@
 /* ================================================================
    ZEN-MODE DARK UI
-   ================================================================
-   Forces dark colors on ALL Firefox UI elements:
-   menus, panels, findbar, context menus, tooltips, etc.
    ================================================================ */
 
-/* --- Navigator Toolbox --- */
 #navigator-toolbox {
   background: var(--zen-bg-base) !important;
   color: var(--zen-text) !important;
 }
 
-/* --- Toolbars --- */
 .toolbarbutton-icon,
 .toolbarbutton-text {
   color: var(--zen-text) !important;
   fill: var(--zen-text) !important;
 }
 
-/* --- Panels / Menus --- */
 .panel-subview-body,
 panelview,
 #unified-extensions-view,
@@ -54,7 +48,6 @@ menuitem[_moz-menuactive="true"],
   color: var(--zen-accent-hover) !important;
 }
 
-/* --- Find bar --- */
 findbar {
   background: var(--zen-bg-base) !important;
   color: var(--zen-text) !important;
@@ -68,15 +61,6 @@ findbar {
   border-radius: 6px !important;
 }
 
-.findbar-find-status,
-.findbar-match-case,
-.findbar-entire-word,
-.findbar-highlight,
-.findbar-label {
-  color: var(--zen-text-muted) !important;
-}
-
-/* --- Title bar buttons (min/max/close) --- */
 .titlebar-button {
   color: var(--zen-text) !important;
   stroke: var(--zen-text) !important;
@@ -87,22 +71,11 @@ findbar {
   background: var(--zen-bg-hover) !important;
 }
 
-/* --- Context menus --- */
-#contentAreaContextMenu,
-#tabContextMenu,
-#toolbar-context-menu {
-  --panel-background: var(--zen-bg-elevated) !important;
-  --panel-color: var(--zen-text) !important;
-  --panel-border-color: var(--zen-border) !important;
-}
-
-/* --- Scrollbars (minimal dark) --- */
 * {
   scrollbar-width: thin !important;
   scrollbar-color: rgba(255,255,255,0.15) transparent !important;
 }
 
-/* --- Status panel (bottom left URL preview) --- */
 #statuspanel {
   background: var(--zen-bg-base) !important;
   color: var(--zen-text) !important;
@@ -115,7 +88,6 @@ findbar {
   background: transparent !important;
 }
 
-/* --- Tooltips --- */
 tooltip {
   background: var(--zen-bg-elevated) !important;
   color: var(--zen-text) !important;

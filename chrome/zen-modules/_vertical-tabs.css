@@ -2,63 +2,102 @@
    ZEN-MODE VERTICAL TABS (Native FF136+)
    ================================================================
    Auto-hide the native vertical tab sidebar. Collapses to a thin
-   strip; expands on hover. Shows together with navbar when urlbar
-   is focused (Ctrl+L hotkey).
+   strip; expands on hover. Independent from navbar.
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
 
-  /* --- Position sidebar absolutely so it can overlay content --- */
-  #main-window:not([inDOMFullscreen="true"]) #sidebar-main {
-    position: absolute !important;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1000 !important;
-    background: var(--zen-bg-base) !important;
-    border-right: 1px solid var(--zen-border) !important;
-    opacity: 1 !important;
-    /* Collapsed width */
-    width: var(--zen-tabbar-collapsed) !important;
-    min-width: var(--zen-tabbar-collapsed) !important;
-    max-width: var(--zen-tabbar-collapsed) !important;
-    transition:
-      width var(--zen-transition) var(--zen-hide-delay),
-      min-width var(--zen-transition) var(--zen-hide-delay),
-      max-width var(--zen-transition) var(--zen-hide-delay) !important;
-    overflow: hidden !important;
+  /* ===== COMPACT MODE: tabbar autohides ===== */
+  @media not -moz-pref("zen.mode.full") {
+
+    /* --- Position sidebar absolutely so it overlays content --- */
+    #main-window:not([inDOMFullscreen="true"]) #sidebar-main {
+      position: absolute !important;
+      top: 0;
+      bottom: 0;
+      z-index: 1000 !important;
+      background: var(--zen-bg-base) !important;
+      opacity: 1 !important;
+      /* Collapsed width */
+      width: var(--zen-tabbar-collapsed) !important;
+      min-width: var(--zen-tabbar-collapsed) !important;
+      max-width: var(--zen-tabbar-collapsed) !important;
+      transition:
+        width var(--zen-transition) var(--zen-hide-delay),
+        min-width var(--zen-transition) var(--zen-hide-delay),
+        max-width var(--zen-transition) var(--zen-hide-delay) !important;
+      overflow: hidden !important;
+    }
+
+    /* Left-positioned sidebar */
+    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main:not([sidebar-positionend=""])) #sidebar-main {
+      left: 0 !important;
+      right: auto !important;
+      border-right: 1px solid var(--zen-border) !important;
+    }
+
+    /* Right-positioned sidebar */
+    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main[sidebar-positionend=""]) #sidebar-main {
+      right: 0 !important;
+      left: auto !important;
+      border-left: 1px solid var(--zen-border) !important;
+    }
+
+    /* --- Expand on hover (sidebar itself) --- */
+    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
+    #main-window:not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
+    #main-window:not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
+    #main-window:not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
+    #main-window:not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
+    #main-window:not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
+      width: var(--zen-tabbar-width) !important;
+      min-width: var(--zen-tabbar-width) !important;
+      max-width: var(--zen-tabbar-width) !important;
+      transition-delay: var(--zen-show-delay) !important;
+      box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
+    }
+
+    /* Right-side shadow */
+    #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main[sidebar-positionend=""]):has(#sidebar-main:hover) #sidebar-main {
+      box-shadow: -4px 0 16px rgba(0,0,0,0.5) !important;
+    }
+
+    /* --- Hide the native splitter --- */
+    #sidebar-launcher-splitter {
+      display: none !important;
+    }
+
+    /* --- Fullscreen: completely hide sidebar --- */
+    #main-window[inFullscreen="true"] #sidebar-main {
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+      border: none !important;
+      opacity: 0 !important;
+    }
   }
 
-  /* --- Expand on hover --- */
-  #main-window:not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
-    transition-delay: var(--zen-show-delay) !important;
-    box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
+  /* ===== FULL MODE: tabbar always visible ===== */
+  @media -moz-pref("zen.mode.full") {
+    #sidebar-main {
+      position: relative !important;
+      width: var(--zen-tabbar-width) !important;
+      min-width: var(--zen-tabbar-width) !important;
+      max-width: var(--zen-tabbar-width) !important;
+      background: var(--zen-bg-base) !important;
+      z-index: 1000 !important;
+    }
+    #main-window:has(#sidebar-main:not([sidebar-positionend=""])) #sidebar-main {
+      border-right: 1px solid var(--zen-border) !important;
+    }
+    #main-window:has(#sidebar-main[sidebar-positionend=""]) #sidebar-main {
+      border-left: 1px solid var(--zen-border) !important;
+    }
   }
 
-  /* --- Show tabbar when navbar is focused/hovered (linked behavior) --- */
-  #main-window:not([inDOMFullscreen="true"]):has(#navigator-toolbox:hover) #sidebar-main,
-  #main-window:not([inDOMFullscreen="true"]):has(#navigator-toolbox:focus-within) #sidebar-main {
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
-    transition-delay: var(--zen-show-delay) !important;
-    box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
-  }
+  /* ===== COMMON STYLING (both modes) ===== */
 
-  /* --- Hide the native splitter (we use our own separator) --- */
-  #sidebar-launcher-splitter {
-    display: none !important;
-  }
-
-  /* --- Tab styling within vertical sidebar --- */
+  /* Tab styling within vertical sidebar */
   #sidebar-main .tabbrowser-tab {
     min-height: 36px !important;
     border-radius: 6px !important;
@@ -84,26 +123,8 @@
     color: var(--zen-text) !important;
   }
 
-  /* --- Pinned tabs --- */
+  /* Pinned tabs */
   #sidebar-main .tabbrowser-tab[pinned] .tab-background {
     background-color: var(--zen-bg-elevated) !important;
   }
-
-  /* --- Content margin: ZERO — sidebar overlays content --- */
-  #main-window:not([inDOMFullscreen="true"]) #tabbrowser-tabbox {
-    margin-inline-start: 0px !important;
-  }
-
-  /* --- Fullscreen: completely hide sidebar --- */
-  #main-window[inFullscreen="true"] #sidebar-main {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    border: none !important;
-  }
-
-  #main-window[inFullscreen="true"] #tabbrowser-tabbox {
-    margin-inline-start: 0 !important;
-  }
-
 }

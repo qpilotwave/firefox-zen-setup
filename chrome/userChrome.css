@@ -2,18 +2,26 @@
    ZEN-MODE userChrome.css
    ================================================================
    Minimal Zen/Arc-inspired Firefox UI.
+
    Features:
-     - Native vertical tabs with auto-hide
+     - Native vertical tabs with auto-hide (compact mode)
      - Navbar auto-hide with top-edge hover zone
      - Dark theme everywhere (UI + websites)
      - Sidebar separator
      - Rounded content frame
-     - Linked show: both navbar + tabbar appear on urlbar focus (Ctrl+L)
+     - Compact/Full mode toggle via zen.mode.full pref
 
-   To enable: toolkit.legacyUserProfileCustomizations.stylesheets = true
+   To toggle mode:
+     1. Install "Userchrome Toggle" extension (or use about:config)
+     2. Toggle the boolean pref "zen.mode.full"
+     3. Extension hotkey switches between compact and full
+
+   Compact mode (default): tabbar + navbar auto-hide independently
+   Full mode: both tabbar and navbar always visible
+
+   To enable CSS: toolkit.legacyUserProfileCustomizations.stylesheets = true
    ================================================================ */
 
-/* --- Module imports --- */
 @import url("zen-modules/_variables.css");
 @import url("zen-modules/_base.css");
 @import url("zen-modules/_vertical-tabs.css");
