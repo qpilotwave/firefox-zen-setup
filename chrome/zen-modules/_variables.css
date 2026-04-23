@@ -1,0 +1,47 @@
+/* ================================================================
+   ZEN-MODE VARIABLES
+   ================================================================
+   Color palette, dimensions, and animation timing for the
+   Zen/Arc-inspired minimal Firefox UI.
+   ================================================================ */
+
+:root {
+  /* --- Dark Color Palette --- */
+  --zen-bg-darkest:   #050505;
+  --zen-bg-dark:      #0a0a0a;
+  --zen-bg-base:      #111111;
+  --zen-bg-elevated:  #1a1a1a;
+  --zen-bg-hover:     #222222;
+  --zen-bg-active:    #2a2a2a;
+  --zen-border:       #2a2a2a;
+  --zen-border-light: #3a3a3a;
+  --zen-text:         #e0e0e0;
+  --zen-text-muted:   #888888;
+  --zen-accent:       #4a90d9;
+  --zen-accent-hover: #6aa8e8;
+
+  /* --- Dimensions --- */
+  --zen-navbar-height:     40px;
+  --zen-tabbar-width:      250px;
+  --zen-tabbar-collapsed:  4px;
+  --zen-sidebar-width:     280px;
+  --zen-border-radius:     10px;
+  --zen-content-margin:    6px;
+
+  /* --- Timing --- */
+  --zen-hide-delay:    400ms;
+  --zen-show-delay:    0ms;
+  --zen-transition:    250ms ease;
+}
+
+/* Force dark color scheme for Firefox UI */
+@media (prefers-color-scheme: light) {
+  :root {
+    --zen-bg-darkest:   #050505;
+    --zen-bg-dark:      #0a0a0a;
+    --zen-bg-base:      #111111;
+    --zen-bg-elevated:  #1a1a1a;
+    --zen-text:         #e0e0e0;
+    --zen-text-muted:   #888888;
+  }
+}

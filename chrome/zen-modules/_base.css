@@ -1,0 +1,59 @@
+/* ================================================================
+   ZEN-MODE BASE
+   ================================================================
+   Global resets, hide bloat UI elements, set main window dark.
+   ================================================================ */
+
+/* --- Main Window Dark Background --- */
+#main-window,
+#browser,
+body {
+  background: var(--zen-bg-dark) !important;
+}
+
+/* --- Remove Default Borders/Outlines --- */
+#tabbrowser-tabbox {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+#appcontent {
+  border-top: 0 !important;
+  border-inline-start: 0 !important;
+}
+
+/* --- Hide Bloat Elements --- */
+#firefox-view-button,
+#import-button,
+#fxa-toolbar-menu-button,
+#userMenubox {
+  display: none !important;
+}
+
+/* Hide bookmark bar by default */
+#PersonalToolbar {
+  display: none !important;
+}
+
+/* --- Notification Deck Positioning --- */
+#tab-notification-deck {
+  position: absolute !important;
+  z-index: 9000 !important;
+  top: var(--zen-navbar-height) !important;
+  right: 0 !important;
+  border-radius: var(--zen-border-radius) !important;
+}
+
+/* --- Fullscreen Warning Hide --- */
+#fullscreen-warning {
+  opacity: 0 !important;
+  border-radius: 20px !important;
+}
+
+/* --- Tab Spacing Reset --- */
+.tabbrowser-tab:not([pinned], [fadein]) {
+  max-width: 0.1px !important;
+  min-width: 0.1px !important;
+  visibility: collapse !important;
+}

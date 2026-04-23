@@ -366,6 +366,11 @@ user_pref("browser.tabs.groups.smart.enabled", false);
 /* Disable experiments */
 user_pref("browser.experiments.active", false);
 
+/* Dark mode everywhere (UI + websites) */
+user_pref("layout.css.prefers-color-scheme.content-override", 0);
+user_pref("browser.theme.dark-private-windows", false);
+user_pref("ui.systemUsesDarkTheme", 1);
+
 /*** [FINAL CHECK] ***/
 user_pref("_user.js.parrot", "SUCCESS: he's resting, pining for the fjords!");
 
