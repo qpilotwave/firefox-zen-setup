@@ -8,114 +8,111 @@
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
-@media not -moz-pref("zen.mode.full") {
+/* Triggered by Userchrome Toggle Extended Style 1 (default: ON) */
 
-  #main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+#main-window[titlepreface*="᠎"]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
-    /* Enforce fixed height so we can position precisely */
+  /* Enforce fixed height so we can position precisely */
+  #navigator-toolbox {
+    height: var(--zen-navbar-height) !important;
+    min-height: var(--zen-navbar-height) !important;
+    max-height: var(--zen-navbar-height) !important;
+  }
+
+  /* --- Position toolbox absolutely at top --- */
+  #navigator-toolbox {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    /* Hidden: moved up by exactly its height (+1px buffer) */
+    top: calc(-1 * var(--zen-navbar-height) - 1px);
+    z-index: 999 !important;
+    background: var(--zen-bg-base) !important;
+    border-bottom: 1px solid var(--zen-border) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+    /* Invisible but still in document flow for hover/focus */
+    opacity: 0;
+    transition:
+      top var(--zen-transition) var(--zen-hide-delay),
+      opacity var(--zen-transition) var(--zen-hide-delay) !important;
+  }
+
+  /* --- Show navbar on hover / focus --- */
+  #navigator-toolbox:hover,
+  #navigator-toolbox:focus-within,
+  #navigator-toolbox[movingtab] {
+    top: 0;
+    opacity: 1;
+    transition-delay: var(--zen-show-delay) !important;
+  }
+
+  /* --- Hover zone: strip at top edge to trigger navbar ---
+     The pseudo-element extends downward from the hidden navbar's
+     bottom edge (which sits at y ≈ -1px) into the viewport. */
+  #navigator-toolbox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+    top: 100%;
+    pointer-events: auto;
+  }
+
+  /* --- Show navbar when URL bar is focused (Ctrl+L) --- */
+  &:has(#urlbar[focused="true"]),
+  &:has(#urlbar[breakout-extend="true"]) {
     #navigator-toolbox {
-      height: var(--zen-navbar-height) !important;
-      min-height: var(--zen-navbar-height) !important;
-      max-height: var(--zen-navbar-height) !important;
-    }
-
-    /* --- Position toolbox absolutely at top --- */
-    #navigator-toolbox {
-      position: absolute !important;
-      left: 0;
-      right: 0;
-      /* Hidden: moved up by exactly its height (+1px buffer) */
-      top: calc(-1 * var(--zen-navbar-height) - 1px);
-      z-index: 999 !important;
-      background: var(--zen-bg-base) !important;
-      border-bottom: 1px solid var(--zen-border) !important;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
-      /* Invisible but still in document flow for hover/focus */
-      opacity: 0;
-      transition:
-        top var(--zen-transition) var(--zen-hide-delay),
-        opacity var(--zen-transition) var(--zen-hide-delay) !important;
-    }
-
-    /* --- Show navbar on hover / focus --- */
-    #navigator-toolbox:hover,
-    #navigator-toolbox:focus-within,
-    #navigator-toolbox[movingtab] {
       top: 0;
       opacity: 1;
       transition-delay: var(--zen-show-delay) !important;
     }
+  }
 
-    /* --- Hover zone: strip at top edge to trigger navbar ---
-       The pseudo-element extends downward from the hidden navbar's
-       bottom edge (which sits at y ≈ -1px) into the viewport. */
-    #navigator-toolbox::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 12px;
-      background: transparent;
-      top: 100%;
-      pointer-events: auto;
-    }
-
-    /* --- Show navbar when URL bar is focused (Ctrl+L) --- */
-    &:has(#urlbar[focused="true"]),
-    &:has(#urlbar[breakout-extend="true"]) {
-      #navigator-toolbox {
-        top: 0;
-        opacity: 1;
-        transition-delay: var(--zen-show-delay) !important;
-      }
-    }
-
-    /* --- Keep navbar visible when menus/popups are open --- */
-    &:has(#placesContext:hover),
-    &:has(#appMenu-popup[panelopen="true"]),
-    &:has(#unified-extensions-panel[panelopen="true"]),
-    &:has(#widget-overflow[panelopen="true"]),
-    &:has(#downloadsPanel[panelopen="true"]),
-    &:has(#editBookmarkPanel[panelopen="true"]),
-    &:has(#notification-popup[panelopen="true"]),
-    &:has(#permission-popup[panelopen="true"]),
-    &:has(#protections-popup[panelopen="true"]),
-    &:has(panel[id*="_-panel"][panelopen="true"]) {
-      #navigator-toolbox {
-        top: 0;
-        opacity: 1;
-        transition-delay: var(--zen-show-delay) !important;
-      }
-    }
-
-    /* --- Navbar height enforcement --- */
-    #nav-bar {
-      min-height: var(--zen-navbar-height) !important;
-      max-height: var(--zen-navbar-height) !important;
-      background: transparent !important;
-    }
-
-    /* --- Toolbar button alignment --- */
-    #nav-bar .toolbarbutton-1 {
-      margin-top: 2px !important;
+  /* --- Keep navbar visible when menus/popups are open --- */
+  &:has(#placesContext:hover),
+  &:has(#appMenu-popup[panelopen="true"]),
+  &:has(#unified-extensions-panel[panelopen="true"]),
+  &:has(#widget-overflow[panelopen="true"]),
+  &:has(#downloadsPanel[panelopen="true"]),
+  &:has(#editBookmarkPanel[panelopen="true"]),
+  &:has(#notification-popup[panelopen="true"]),
+  &:has(#permission-popup[panelopen="true"]),
+  &:has(#protections-popup[panelopen="true"]),
+  &:has(panel[id*="_-panel"][panelopen="true"]) {
+    #navigator-toolbox {
+      top: 0;
+      opacity: 1;
+      transition-delay: var(--zen-show-delay) !important;
     }
   }
 
-  /* --- Fullscreen: fixed position --- */
-  #main-window[inFullscreen="true"] #navigator-toolbox {
-    position: fixed !important;
+  /* --- Navbar height enforcement --- */
+  #nav-bar {
+    min-height: var(--zen-navbar-height) !important;
+    max-height: var(--zen-navbar-height) !important;
+    background: transparent !important;
+  }
+
+  /* --- Toolbar button alignment --- */
+  #nav-bar .toolbarbutton-1 {
+    margin-top: 2px !important;
   }
 }
 
+/* --- Fullscreen: fixed position --- */
+#main-window[titlepreface*="᠎"][inFullscreen="true"] #navigator-toolbox {
+  position: fixed !important;
+}
+
 /* ===== FULL MODE: navbar always visible ===== */
-@media -moz-pref("zen.mode.full") {
-  #navigator-toolbox {
-    position: relative !important;
-    top: 0 !important;
-    opacity: 1 !important;
-    background: var(--zen-bg-base) !important;
-    border-bottom: 1px solid var(--zen-border) !important;
-  }
+#main-window:not([titlepreface*="᠎"]) #navigator-toolbox {
+  position: relative !important;
+  top: 0 !important;
+  opacity: 1 !important;
+  background: var(--zen-bg-base) !important;
+  border-bottom: 1px solid var(--zen-border) !important;
 }
 
 /* ===== CUSTOMIZING MODE: always show ===== */

@@ -9,12 +9,12 @@
      - Dark theme everywhere (UI + websites)
      - Sidebar separator
      - Rounded content frame
-     - Compact/Full mode toggle via zen.mode.full pref
+     - Compact/Full mode toggle via Userchrome Toggle Extended
 
    To toggle mode:
-     1. Install "Userchrome Toggle" extension (or use about:config)
-     2. Toggle the boolean pref "zen.mode.full"
-     3. Extension hotkey switches between compact and full
+     1. Install "Userchrome Toggle Extended" extension (auto-installed via policy)
+     2. Press Ctrl+Shift+1 or click the toolbar button
+     3. Style 1 ON = Compact (tabbar+navbar autohide), OFF = Full (always visible)
 
    Compact mode (default): tabbar + navbar auto-hide independently
    Full mode: both tabbar and navbar always visible
