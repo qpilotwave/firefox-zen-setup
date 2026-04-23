@@ -367,10 +367,10 @@ user_pref("browser.tabs.groups.smart.enabled", false);
 /* Disable experiments */
 user_pref("browser.experiments.active", false);
 
-/* Zen UI mode is controlled by native sidebar visibility.
-   Full mode:    sidebar visible  (Ctrl+Alt*Z or sidebar button)
-   Compact mode: sidebar hidden   (same toggle)
-   Compact mode hides the tabbar natively and autohides the navbar. */
+/* Zen UI mode is controlled by Userchrome Toggle Extended extension.
+   Style 1 (default: ON) = Compact mode (tabbar+navbar autohide)
+   Toggle with Ctrl+Shift+1 or the toolbar button.
+   The extension is auto-installed via enterprise policy. */
 
 /* Dark mode everywhere (UI + websites) */
 user_pref("layout.css.prefers-color-scheme.content-override", 0);
