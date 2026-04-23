@@ -1,0 +1,171 @@
+/* userChrome.css - Modern Firefox UI Styling
+ * Place in: ~/.mozilla/firefox/<profile>/chrome/userChrome.css
+ *
+ * Designed for Firefox 136+ with native vertical tabs and sidebar revamp.
+ * To enable: Set toolkit.legacyUserProfileCustomizations.stylesheets = true
+ * (already set in user.js), then restart Firefox.
+ */
+
+/* == GLOBAL THEME VARIABLES == */
+:root {
+  --modern-bg: #1e1e1e;
+  --modern-fg: #e0e0e0;
+  --modern-accent: #4a90d9;
+  --modern-sidebar-width: 280px;
+  --modern-tab-height: 36px;
+}
+
+/* == NATIVE VERTICAL TABS AREA == */
+/* The native vertical tabs toolbar (FF136+) */
+#vertical-tabs {
+  background: var(--modern-bg) !important;
+  color: var(--modern-fg) !important;
+}
+
+#vertical-tabs .tabbrowser-tab {
+  min-height: var(--modern-tab-height) !important;
+  border-radius: 6px !important;
+  margin: 2px 6px !important;
+  padding: 0 8px !important;
+}
+
+#vertical-tabs .tabbrowser-tab[selected="true"] {
+  background: rgba(255,255,255,0.08) !important;
+  border-left: 3px solid var(--modern-accent) !important;
+}
+
+#vertical-tabs .tabbrowser-tab:hover:not([selected="true"]) {
+  background: rgba(255,255,255,0.04) !important;
+}
+
+/* == SIDEBAR MODERNIZATION == */
+#sidebar-box, #sidebar {
+  background: var(--modern-bg) !important;
+  color: var(--modern-fg) !important;
+}
+
+#sidebar-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+  padding: 8px 12px !important;
+}
+
+/* Sidebar tree items */
+tree#sidebar-tree > treechildren {
+  background: var(--modern-bg) !important;
+  color: var(--modern-fg) !important;
+}
+
+/* Custom scrollbar for sidebar - slim dark */
+#sidebar treechildren::-webkit-scrollbar {
+  width: 6px !important;
+}
+#sidebar treechildren::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2) !important;
+}
+#sidebar treechildren::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2) !important;
+  border-radius: 3px !important;
+}
+
+/* == NAVIGATION TOOLBAR MINIMALISM == */
+#nav-bar {
+  padding: 2px 8px !important;
+  min-height: 32px !important;
+  background: var(--modern-bg) !important;
+}
+
+/* URL bar - modern flat look */
+#urlbar {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+  color: var(--modern-fg) !important;
+}
+
+#urlbar[focused="true"] {
+  border-color: var(--modern-accent) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+
+#urlbar .urlbar-input-box {
+  padding: 0 !important;
+}
+
+/* == COMPACT MODE ENHANCEMENTS == */
+#navigator-toolbox[compact="true"] #tabbrowser-tabs .tab {
+  min-height: 30px !important;
+  padding: 0 6px !important;
+}
+
+/* == HIDE UNNECESSARY UI ELEMENTS == */
+/* Hide bookmark bar (use sidebar instead) */
+#PersonalToolbar {
+  display: none !important;
+  visibility: collapse !important;
+}
+
+/* Hide downloads/library/panic buttons */
+#downloads-button,
+#library-button,
+#panic-button {
+  display: none !important;
+}
+
+/* Hide the Firefox account avatar button (bloat) */
+#fxa-toolbar-menu-button,
+#userMenubox {
+  display: none !important;
+}
+
+/* Hide Firefox View button */
+#firefox-view-button {
+  display: none !important;
+}
+
+/* == HORIZONTAL TAB BAR == */
+/* Native vertical tabs (FF136+) automatically hide the horizontal tab bar. */
+/* Do NOT force-hide #TabsToolbar here, so horizontal tabs still work if toggled off. */
+
+/* == MODERN FULLSCREEN == */
+#navigator-toolbox[inFullscreen] {
+  visibility: collapse !important;
+}
+
+#navigator-toolbox[inFullscreen]:hover {
+  visibility: visible !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(30,30,30,0.95) !important;
+  padding: 4px 8px;
+}
+
+/* == EXTENSION-FRIENDLY SIDEBAR == */
+sidebarheader {
+  display: none !important;
+}
+
+/* == FONT SMOOTHING == */
+* {
+  font-family: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", sans-serif !important;
+}
+
+/* Toolbar font size */
+#navigator-toolbox {
+  font-size: 13px !important;
+}
+
+/* == FINAL CLEANUP == */
+#welcome-popup,
+#getstarted-page {
+  display: none !important;
+}
+
+/* Remove notification badges from sidebar launcher */
+#sidebar-launcher .toolbarbutton-badge {
+  display: none !important;
+}
