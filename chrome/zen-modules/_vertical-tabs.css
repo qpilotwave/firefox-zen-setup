@@ -45,7 +45,6 @@
     min-width: var(--zen-tabbar-width) !important;
     max-width: var(--zen-tabbar-width) !important;
     transition-delay: var(--zen-show-delay) !important;
-    box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
   }
 
   /* --- Show tab labels when sidebar is hovered in compact mode ---
@@ -150,7 +149,7 @@
 
   /* ===== COMMON STYLING (both modes) ===== */
 
-  /* Close button: grayscale X, no yellow/orange, no background box */
+  /* Close button: 100% white X, darker background on hover */
   #sidebar-main .tab-close-button,
   #sidebar-main .tab-close-button > .toolbarbutton-icon,
   #sidebar-main .tab-close-button > .toolbarbutton-text,
@@ -160,19 +159,20 @@
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    fill: var(--zen-text-muted) !important;
-    color: var(--zen-text-muted) !important;
-    stroke: var(--zen-text-muted) !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
     -moz-context-properties: fill, stroke !important;
   }
 
   #sidebar-main .tab-close-button:hover,
   #sidebar-main .tab-close-button:hover > .toolbarbutton-icon {
-    background: transparent !important;
-    background-color: transparent !important;
-    fill: var(--zen-text) !important;
-    color: var(--zen-text) !important;
-    stroke: var(--zen-text) !important;
+    background: #333333 !important;
+    background-color: #333333 !important;
+    border-radius: 4px !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
   }
 
   /* Tab caption text: white, not blue */
