@@ -95,7 +95,8 @@
     border-radius: 6px !important;
   }
 
-  /* Compact close button: identical to full mode (white X, no circle) */
+  /* Compact close button: show it (native hides it in icon-strip mode).
+     Appearance is handled by common styling below. */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-close-button,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-close-button,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-close-button,
@@ -108,15 +109,6 @@
     margin-inline-start: auto !important;
     position: relative !important;
     inset: auto !important;
-    fill: #ffffff !important;
-    color: #ffffff !important;
-    stroke: #ffffff !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    -moz-appearance: none !important;
   }
 
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-icon-image,
@@ -235,7 +227,7 @@
     color: var(--zen-text) !important;
   }
 
-  /* Hide New Tab button in vertical sidebar — aggressive */
+  /* Hide New Tab button in vertical sidebar */
   #sidebar-main #new-tab-button,
   #sidebar-main .new-tab-button,
   #sidebar-main #tabs-newtab-button,
@@ -247,10 +239,7 @@
   #sidebar-main toolbarbutton[id*="newtab"],
   #sidebar-main moz-button[label="New Tab"],
   #sidebar-main [data-l10n-id*="new-tab"],
-  #sidebar-main [data-l10n-id*="newTab"],
-  #sidebar-main .tabbrowser-tab ~ *,
-  #sidebar-main sidebar-main::part(new-tab),
-  #sidebar-main sidebar-main::part(newtab) {
+  #sidebar-main [data-l10n-id*="newTab"] {
     display: none !important;
     visibility: collapse !important;
     max-height: 0 !important;
