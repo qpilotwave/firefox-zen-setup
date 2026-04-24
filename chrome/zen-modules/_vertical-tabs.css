@@ -150,16 +150,34 @@
 
   /* ===== COMMON STYLING (both modes) ===== */
 
-  /* Close button: grayscale, not yellow */
-  #sidebar-main .tab-close-button {
+  /* Close button: grayscale, not yellow/orange */
+  #sidebar-main .tab-close-button,
+  #sidebar-main .tab-close-button .toolbarbutton-icon,
+  #sidebar-main .tab-close-button .toolbarbutton-text {
     fill: var(--zen-text-muted) !important;
     color: var(--zen-text-muted) !important;
+    stroke: var(--zen-text-muted) !important;
+    -moz-context-properties: fill, stroke !important;
   }
 
-  #sidebar-main .tab-close-button:hover {
+  #sidebar-main .tab-close-button:hover,
+  #sidebar-main .tab-close-button:hover .toolbarbutton-icon {
     fill: var(--zen-text) !important;
     color: var(--zen-text) !important;
-    background: var(--zen-bg-hover) !important;
+    stroke: var(--zen-text) !important;
+    background-color: var(--zen-bg-hover) !important;
+  }
+
+  /* Tab caption text: white, not blue */
+  #sidebar-main .tab-label-container,
+  #sidebar-main .tab-label-container[selected],
+  #sidebar-main .tab-label {
+    color: var(--zen-text) !important;
+  }
+
+  #sidebar-main .tabbrowser-tab[selected="true"] .tab-label {
+    color: var(--zen-text) !important;
+    font-weight: 500 !important;
   }
 
   /* Tab styling within vertical sidebar */
