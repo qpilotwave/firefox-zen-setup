@@ -5,15 +5,15 @@
    strip; expands on hover. Independent from navbar.
    Vertical tabs are LOCKED to the LEFT side.
 
-   Toggle: Userchrome Toggle Extended (Ctrl+Shift+1)
-   ᠎ (MVS) present  = Compact mode (autohide)
-   ᠎ absent         = Full mode (always visible)
+   Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
+   sidebar-main:not([expanded]) = Compact mode (autohide)
+   sidebar-main[expanded]       = Full mode (always visible)
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
 
   /* ===== COMPACT MODE: tabbar autohides ===== */
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]) #sidebar-main {
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main {
     position: absolute !important;
     top: 0;
     bottom: 0;
@@ -35,12 +35,12 @@
   }
 
   /* --- Expand on hover (sidebar itself) --- */
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
-  #main-window[titlepreface*="᠎"]:not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
     width: var(--zen-tabbar-width) !important;
     min-width: var(--zen-tabbar-width) !important;
     max-width: var(--zen-tabbar-width) !important;
@@ -49,12 +49,12 @@
   }
 
   /* --- Hide the native splitter --- */
-  #main-window[titlepreface*="᠎"] #sidebar-launcher-splitter {
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])) #sidebar-launcher-splitter {
     display: none !important;
   }
 
   /* --- Fullscreen: completely hide sidebar --- */
-  #main-window[titlepreface*="᠎"][inFullscreen="true"] #sidebar-main {
+  #main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #sidebar-main {
     width: 0 !important;
     min-width: 0 !important;
     max-width: 0 !important;
@@ -63,7 +63,7 @@
   }
 
   /* ===== FULL MODE: tabbar always visible ===== */
-  #main-window:not([titlepreface*="᠎"]) #sidebar-main {
+  #main-window:has(#sidebar-main sidebar-main[expanded]) #sidebar-main {
     position: relative !important;
     left: 0 !important;
     right: auto !important;

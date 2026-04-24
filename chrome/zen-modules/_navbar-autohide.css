@@ -6,13 +6,13 @@
    Uses "top" positioning (not transform) so ::after hover zone
    stays at the viewport edge and focus events work.
 
-   Toggle: Userchrome Toggle Extended (Ctrl+Shift+1)
-   ᠎ (MVS) present  = Compact mode (navbar autohides)
-   ᠎ absent         = Full mode (navbar always visible)
+   Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
+   sidebar-main:not([expanded]) = Compact mode (navbar autohides)
+   sidebar-main[expanded]       = Full mode (navbar always visible)
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
-#main-window[titlepreface*="᠎"]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+#main-window:has(#sidebar-main sidebar-main:not([expanded])):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -104,12 +104,12 @@
 }
 
 /* --- Fullscreen: fixed position --- */
-#main-window[titlepreface*="᠎"][inFullscreen="true"] #navigator-toolbox {
+#main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #navigator-toolbox {
   position: fixed !important;
 }
 
 /* ===== FULL MODE: navbar always visible ===== */
-#main-window:not([titlepreface*="᠎"]) #navigator-toolbox {
+#main-window:has(#sidebar-main sidebar-main[expanded]) #navigator-toolbox {
   position: relative !important;
   top: 0 !important;
   opacity: 1 !important;
