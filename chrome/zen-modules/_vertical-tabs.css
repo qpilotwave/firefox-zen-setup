@@ -210,11 +210,11 @@
     font-weight: 500 !important;
   }
 
-  /* Tab styling within vertical sidebar */
+  /* Tab styling within vertical sidebar — flush to edges, no side margin */
   #sidebar-main .tabbrowser-tab {
     min-height: 36px !important;
     border-radius: 6px !important;
-    margin: 2px 6px !important;
+    margin: 2px 0 !important;
     padding: 0 8px !important;
     color: var(--zen-text) !important;
     border: none !important;

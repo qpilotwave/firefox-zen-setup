@@ -48,6 +48,15 @@
     transition-delay: var(--zen-show-delay) !important;
   }
 
+  /* --- Suppress navbar when ONLY the sidebar is hovered ---
+     Native "expand sidebar on hover" can trigger toolbar visibility;
+     keep navbar hidden unless the toolbox itself is hovered/focused. --- */
+  #main-window:has(#sidebar-main:hover):not(:has(#navigator-toolbox:hover)):not(:has(#navigator-toolbox:focus-within)) #navigator-toolbox {
+    top: calc(-1 * var(--zen-navbar-height) - 1px);
+    opacity: 0;
+    transition-delay: var(--zen-hide-delay) !important;
+  }
+
   /* --- Hover zone: strip at top edge to trigger navbar ---
      The pseudo-element extends downward from the hidden navbar's
      bottom edge (which sits at y ≈ -1px) into the viewport. */
