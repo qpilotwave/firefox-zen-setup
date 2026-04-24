@@ -48,6 +48,24 @@
     box-shadow: 4px 0 16px rgba(0,0,0,0.5) !important;
   }
 
+  /* --- Show tab labels when sidebar is hovered in compact mode ---
+     Firefox hides .tab-label-container natively when sidebar-main is not
+     [expanded] (collapsed icon-strip mode). We override this so tab
+     captions become readable while the sidebar is expanded on hover. --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-label-container {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: none !important;
+    min-width: unset !important;
+    width: auto !important;
+  }
+
   /* --- Hide the native splitter --- */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])) #sidebar-launcher-splitter {
     display: none !important;
