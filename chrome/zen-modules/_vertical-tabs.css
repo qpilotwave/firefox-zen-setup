@@ -68,8 +68,9 @@
 
   /* --- Restore full-mode tab layout during compact-mode hover ---
      Native collapsed icon-strip styles persist on tabs (small padding,
-     favicon-only, close button hidden/misplaced). We override these
-     so the expanded sidebar looks identical to full mode. --- */
+     favicon-only, close button hidden/misplaced, background pill sized
+     for icon only). We override these so the expanded sidebar looks
+     identical to full mode. --- */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-content,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-content,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-content,
@@ -79,6 +80,20 @@
     padding-inline: 8px !important;
     justify-content: flex-start !important;
     align-items: center !important;
+  }
+
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-background {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border-radius: 6px !important;
   }
 
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-close-button,
@@ -93,6 +108,8 @@
     margin-inline-start: auto !important;
     position: relative !important;
     inset: auto !important;
+    fill: var(--zen-text-muted) !important;
+    color: var(--zen-text-muted) !important;
   }
 
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-icon-image,
@@ -132,6 +149,18 @@
   }
 
   /* ===== COMMON STYLING (both modes) ===== */
+
+  /* Close button: grayscale, not yellow */
+  #sidebar-main .tab-close-button {
+    fill: var(--zen-text-muted) !important;
+    color: var(--zen-text-muted) !important;
+  }
+
+  #sidebar-main .tab-close-button:hover {
+    fill: var(--zen-text) !important;
+    color: var(--zen-text) !important;
+    background: var(--zen-bg-hover) !important;
+  }
 
   /* Tab styling within vertical sidebar */
   #sidebar-main .tabbrowser-tab {
