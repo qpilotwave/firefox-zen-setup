@@ -35,18 +35,19 @@
   }
 
   /* --- Expand on hover (sidebar itself) ---
-     Width is NOT !important so that an inline width set by the native
-     splitter (dragged in full mode) takes precedence. If no inline width
-     exists, it falls back to var(--zen-tabbar-width). --- */
+     Width uses !important to override the collapsed-state !important.
+     This means hover always expands to the default --zen-tabbar-width;
+     a custom width dragged in full mode is not preserved here (that
+     would need a JS script to read the inline style). --- */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
-    width: var(--zen-tabbar-width);
-    min-width: var(--zen-tabbar-collapsed);
-    max-width: none;
+    width: var(--zen-tabbar-width) !important;
+    min-width: var(--zen-tabbar-width) !important;
+    max-width: var(--zen-tabbar-width) !important;
     transition-delay: var(--zen-show-delay) !important;
   }
 
