@@ -1,18 +1,18 @@
 /* ================================================================
    ZEN-MODE NAVBAR
    ================================================================
-   Compact mode: slides up out of view, shows on top-edge hover.
-   Full mode: always visible.
-   Uses "top" positioning (not transform) so ::after hover zone
-   stays at the viewport edge and focus events work.
+   Navbar auto-hides in ALL modes. Slides up out of view, shows on
+   top-edge hover. Uses "top" positioning (not transform) so ::after
+   hover zone stays at the viewport edge and focus events work.
 
    Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
-   sidebar-main:not([expanded]) = Compact mode (navbar autohides)
-   sidebar-main[expanded]       = Full mode (navbar always visible)
+   sidebar-main:not([expanded]) = Compact mode
+   sidebar-main[expanded]       = Full mode
+   In BOTH modes the navbar is hidden unless hovered at top edge.
    ================================================================ */
 
-/* ===== COMPACT MODE: navbar autohides ===== */
-#main-window:has(#sidebar-main sidebar-main:not([expanded])):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+/* ===== ALL MODES: navbar autohides ===== */
+#main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -51,10 +51,12 @@
   /* --- Suppress navbar when ONLY the sidebar is hovered ---
      Native "expand sidebar on hover" can trigger toolbar visibility;
      keep navbar hidden unless the toolbox itself is hovered/focused. --- */
-  #main-window:has(#sidebar-main:hover):not(:has(#navigator-toolbox:hover)):not(:has(#navigator-toolbox:focus-within)) #navigator-toolbox {
-    top: calc(-1 * var(--zen-navbar-height) - 1px);
-    opacity: 0;
-    transition-delay: var(--zen-hide-delay) !important;
+  &:has(#sidebar-main:hover):not(:has(#navigator-toolbox:hover)):not(:has(#navigator-toolbox:focus-within)) {
+    #navigator-toolbox {
+      top: calc(-1 * var(--zen-navbar-height) - 1px);
+      opacity: 0;
+      transition-delay: var(--zen-hide-delay) !important;
+    }
   }
 
   /* --- Hover zone: strip at top edge to trigger navbar ---
@@ -113,17 +115,8 @@
 }
 
 /* --- Fullscreen: fixed position --- */
-#main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #navigator-toolbox {
+#main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""])[inFullscreen="true"] #navigator-toolbox {
   position: fixed !important;
-}
-
-/* ===== FULL MODE: navbar always visible ===== */
-#main-window:has(#sidebar-main sidebar-main[expanded]) #navigator-toolbox {
-  position: relative !important;
-  top: 0 !important;
-  opacity: 1 !important;
-  background: var(--zen-bg-base) !important;
-  border-bottom: 1px solid var(--zen-border) !important;
 }
 
 /* ===== CUSTOMIZING MODE: always show ===== */

@@ -2,12 +2,8 @@
    ZEN-MODE VERTICAL TABS (Native FF136+)
    ================================================================
    Auto-hide the native vertical tab sidebar. Collapses to a thin
-   strip; expands on hover. Independent from navbar.
-   Vertical tabs are LOCKED to the LEFT side.
-
-   Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
-   sidebar-main:not([expanded]) = Compact mode (autohide)
-   sidebar-main[expanded]       = Full mode (always visible)
+   strip; expands on hover via native "expand sidebar on hover".
+   Independent from navbar. Vertical tabs are LOCKED to the LEFT.
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
@@ -32,96 +28,6 @@
       min-width var(--zen-transition) var(--zen-hide-delay),
       max-width var(--zen-transition) var(--zen-hide-delay) !important;
     overflow: hidden !important;
-  }
-
-  /* --- Expand on hover (sidebar itself) ---
-     Width uses !important to override the collapsed-state !important.
-     This means hover always expands to the default --zen-tabbar-width;
-     a custom width dragged in full mode is not preserved here (that
-     would need a JS script to read the inline style). --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
-    transition-delay: var(--zen-show-delay) !important;
-  }
-
-  /* --- Show tab labels when sidebar is hovered in compact mode ---
-     Firefox hides .tab-label-container natively when sidebar-main is not
-     [expanded] (collapsed icon-strip mode). We override this so tab
-     captions become readable while the sidebar is expanded on hover. --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-label-container {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    max-width: none !important;
-    min-width: unset !important;
-    width: auto !important;
-  }
-
-  /* --- Restore full-mode tab layout during compact-mode hover ---
-     Native collapsed icon-strip styles persist on tabs (small padding,
-     favicon-only, close button hidden/misplaced, background pill sized
-     for icon only). We override these so the expanded sidebar looks
-     identical to full mode. --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-content {
-    padding-inline: 8px !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-  }
-
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-background {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    border-radius: 6px !important;
-  }
-
-  /* Compact close button: show it (native hides it in icon-strip mode).
-     Appearance is handled by common styling below. */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-close-button {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    margin-inline-start: auto !important;
-    position: relative !important;
-    inset: auto !important;
-  }
-
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main .tab-icon-image {
-    margin-inline-end: 6px !important;
   }
 
   /* --- Splitter handling ---
@@ -210,7 +116,7 @@
     font-weight: 500 !important;
   }
 
-  /* Tab styling within vertical sidebar — flush to edges, no side margin */
+  /* Tab styling within vertical sidebar */
   #sidebar-main .tabbrowser-tab {
     min-height: 36px !important;
     border-radius: 6px !important;
