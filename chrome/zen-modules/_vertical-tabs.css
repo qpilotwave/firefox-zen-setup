@@ -198,19 +198,14 @@
     box-shadow: none !important;
   }
 
-  /* Active/selected tab: darker background, no border/outline on any sub-element */
-  #sidebar-main .tabbrowser-tab[selected="true"],
-  #sidebar-main .tabbrowser-tab[selected="true"] .tab-stack,
-  #sidebar-main .tabbrowser-tab[selected="true"] .tab-background,
-  #sidebar-main .tabbrowser-tab[selected="true"] .tab-content {
-    background: #171717 !important;
-    background-color: #171717 !important;
+  /* Active/selected tab: clearly visible darker background, no accent border */
+  #sidebar-main .tabbrowser-tab[selected="true"] {
+    background: #222222 !important;
     border: none !important;
-    outline: none !important;
     box-shadow: none !important;
   }
 
-  /* Also kill any Firefox native "selected" border/indicator on tab-background */
+  /* Prevent any native white/blue pseudo-element indicator on selected tabs */
   #sidebar-main .tabbrowser-tab[selected="true"] .tab-background::before,
   #sidebar-main .tabbrowser-tab[selected="true"] .tab-background::after {
     display: none !important;
@@ -224,7 +219,8 @@
   }
 
   #sidebar-main .tab-label-container[selected] {
-    color: var(--zen-text) !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
   }
 
   #sidebar-main .tab-label-container:not([selected]) {
