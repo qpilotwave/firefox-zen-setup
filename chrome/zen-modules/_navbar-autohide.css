@@ -114,6 +114,13 @@
   }
 }
 
+/* ===== FULL MODE: navbar always visible ===== */
+#main-window:has(#sidebar-main sidebar-main[expanded]):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) #navigator-toolbox {
+  position: relative !important;
+  top: 0 !important;
+  opacity: 1 !important;
+}
+
 /* --- Fullscreen: fixed position --- */
 #main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""])[inFullscreen="true"] #navigator-toolbox {
   position: fixed !important;

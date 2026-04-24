@@ -8,7 +8,9 @@
 
 @media -moz-pref("sidebar.verticalTabs") {
 
-  /* ===== COMPACT MODE: tabbar autohides ===== */
+  /* ===== COMPACT MODE: tabbar autohides =====
+     Width is NOT !important so native "expand sidebar on hover"
+     can override it. min/max-width keep it at 4px when not hovered. */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main {
     position: absolute !important;
     top: 0;
@@ -18,10 +20,9 @@
     z-index: 1000 !important;
     background: var(--zen-bg-base) !important;
     opacity: 1 !important;
-    /* Collapsed width */
-    width: var(--zen-tabbar-collapsed) !important;
-    min-width: var(--zen-tabbar-collapsed) !important;
-    max-width: var(--zen-tabbar-collapsed) !important;
+    width: var(--zen-tabbar-collapsed);
+    min-width: var(--zen-tabbar-collapsed);
+    max-width: var(--zen-tabbar-collapsed);
     border-right: 1px solid var(--zen-border) !important;
     transition:
       width var(--zen-transition) var(--zen-hide-delay),
