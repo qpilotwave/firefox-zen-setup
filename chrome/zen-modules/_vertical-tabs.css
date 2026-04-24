@@ -34,16 +34,19 @@
     overflow: hidden !important;
   }
 
-  /* --- Expand on hover (sidebar itself) --- */
+  /* --- Expand on hover (sidebar itself) ---
+     Width is NOT !important so that an inline width set by the native
+     splitter (dragged in full mode) takes precedence. If no inline width
+     exists, it falls back to var(--zen-tabbar-width). --- */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabContextMenu:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(.tab-group-editor-panel[panelopen="true"]) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#new-tab-button-popup:hover) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tab-preview-panel[panelopen="true"]) #sidebar-main,
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#tabgroup-preview-panel[panelopen="true"]) #sidebar-main {
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
+    width: var(--zen-tabbar-width);
+    min-width: var(--zen-tabbar-collapsed);
+    max-width: none;
     transition-delay: var(--zen-show-delay) !important;
   }
 
@@ -120,9 +123,25 @@
     margin-inline-end: 6px !important;
   }
 
-  /* --- Hide the native splitter --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])) #sidebar-launcher-splitter {
+  /* --- Splitter handling ---
+     The native splitter is hidden in compact mode because the sidebar
+     width is forced to 56px with !important there, making dragging
+     useless. In full mode the splitter is visible and functional: the
+     width rules above have no !important, so the splitter's inline
+     style overrides them when dragged. --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-launcher-splitter,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #sidebar-launcher-splitter,
+  #main-window:has(#sidebar-main sidebar-main[expanded])[inFullscreen="true"] #sidebar-launcher-splitter,
+  #main-window:has(#sidebar-main sidebar-main[expanded])[inDOMFullscreen="true"] #sidebar-launcher-splitter {
     display: none !important;
+  }
+
+  /* Style the splitter grip when visible */
+  #sidebar-launcher-splitter {
+    width: 4px !important;
+    background: var(--zen-border) !important;
+    border: none !important;
+    margin: 0 !important;
   }
 
   /* --- Fullscreen: completely hide sidebar --- */
@@ -134,14 +153,17 @@
     opacity: 0 !important;
   }
 
-  /* ===== FULL MODE: tabbar always visible ===== */
+  /* ===== FULL MODE: tabbar always visible =====
+     Width is NOT !important so the native splitter can override it
+     when the user drags to resize. Inline style set by the splitter
+     always beats CSS specificity. --- */
   #main-window:has(#sidebar-main sidebar-main[expanded]) #sidebar-main {
     position: relative !important;
     left: 0 !important;
     right: auto !important;
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
+    width: var(--zen-tabbar-width);
+    min-width: var(--zen-tabbar-collapsed);
+    max-width: none;
     background: var(--zen-bg-base) !important;
     z-index: 1000 !important;
     border-right: 1px solid var(--zen-border) !important;
