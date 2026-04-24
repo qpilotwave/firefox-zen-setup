@@ -107,8 +107,9 @@
     margin-inline-start: auto !important;
     position: relative !important;
     inset: auto !important;
-    fill: var(--zen-text-muted) !important;
-    color: var(--zen-text-muted) !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
   }
 
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]):has(#sidebar-main:hover) #sidebar-main .tab-icon-image,
@@ -225,6 +226,12 @@
 
   #sidebar-main .tab-label-container:not([selected]) {
     color: var(--zen-text) !important;
+  }
+
+  /* Hide New Tab button in vertical sidebar */
+  #sidebar-main #new-tab-button,
+  #sidebar-main .new-tab-button {
+    display: none !important;
   }
 
   /* Pinned tabs */
