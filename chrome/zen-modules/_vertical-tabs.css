@@ -2,15 +2,17 @@
    ZEN-MODE VERTICAL TABS (Native FF136+)
    ================================================================
    Auto-hide the native vertical tab sidebar. Collapses to a thin
-   strip; expands on hover via native "expand sidebar on hover".
-   Independent from navbar. Vertical tabs are LOCKED to the LEFT.
+   strip; expands on hover. Independent from navbar.
+   Vertical tabs are LOCKED to the LEFT side.
+
+   Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
+   sidebar-main:not([expanded]) = Compact mode (autohide)
+   sidebar-main[expanded]       = Full mode (always visible)
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
 
-  /* ===== COMPACT MODE: tabbar autohides =====
-     Width is NOT !important so native "expand sidebar on hover"
-     can override it. min/max-width keep it at 4px when not hovered. */
+  /* ===== COMPACT MODE: tabbar autohides ===== */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main {
     position: absolute !important;
     top: 0;
@@ -20,36 +22,95 @@
     z-index: 1000 !important;
     background: var(--zen-bg-base) !important;
     opacity: 1 !important;
-    width: var(--zen-tabbar-collapsed);
-    min-width: var(--zen-tabbar-collapsed);
-    max-width: var(--zen-tabbar-collapsed);
+    width: var(--zen-tabbar-collapsed) !important;
+    min-width: var(--zen-tabbar-collapsed) !important;
+    max-width: var(--zen-tabbar-collapsed) !important;
     border-right: 1px solid var(--zen-border) !important;
-    transition:
-      width var(--zen-transition) var(--zen-hide-delay),
-      min-width var(--zen-transition) var(--zen-hide-delay),
-      max-width var(--zen-transition) var(--zen-hide-delay) !important;
     overflow: hidden !important;
   }
 
-  /* --- Splitter handling ---
-     The native splitter is hidden in compact mode because the sidebar
-     width is forced to 56px with !important there, making dragging
-     useless. In full mode the splitter is visible and functional: the
-     width rules above have no !important, so the splitter's inline
-     style overrides them when dragged. --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-launcher-splitter,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #sidebar-launcher-splitter,
-  #main-window:has(#sidebar-main sidebar-main[expanded])[inFullscreen="true"] #sidebar-launcher-splitter,
-  #main-window:has(#sidebar-main sidebar-main[expanded])[inDOMFullscreen="true"] #sidebar-launcher-splitter {
-    display: none !important;
+  /* --- Expand on hover: instant snap, no transition ---
+     Using #sidebar-main:hover directly instead of :has(#sidebar-main:hover)
+     on #main-window for better reliability when sidebars change state. --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover),
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]),
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover),
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]),
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) {
+    width: var(--zen-tabbar-width) !important;
+    min-width: var(--zen-tabbar-width) !important;
+    max-width: var(--zen-tabbar-width) !important;
   }
 
-  /* Style the splitter grip when visible */
-  #sidebar-launcher-splitter {
-    width: 4px !important;
-    background: var(--zen-border) !important;
-    border: none !important;
+  /* --- Show tab labels on hover --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-label-container,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-label-container {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: none !important;
+    min-width: unset !important;
+    width: auto !important;
+  }
+
+  /* --- Full-mode tab layout on hover --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-content,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-content,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-content,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-content,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-content,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-content {
+    padding-inline: 8px !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-background,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-background {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     margin: 0 !important;
+    border-radius: 6px !important;
+  }
+
+  /* Compact close button: show it */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-close-button,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-close-button,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-close-button,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-close-button,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-close-button,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-close-button {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-inline-start: auto !important;
+    position: relative !important;
+    inset: auto !important;
+  }
+
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-icon-image,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-icon-image,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-icon-image,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-icon-image,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-icon-image,
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-icon-image {
+    margin-inline-end: 6px !important;
+  }
+
+  /* --- Hide the native splitter in compact mode --- */
+  #main-window:has(#sidebar-main sidebar-main:not([expanded])) #sidebar-launcher-splitter {
+    display: none !important;
   }
 
   /* --- Fullscreen: completely hide sidebar --- */
@@ -62,9 +123,7 @@
   }
 
   /* ===== FULL MODE: tabbar always visible =====
-     Width is NOT !important so the native splitter can override it
-     when the user drags to resize. Inline style set by the splitter
-     always beats CSS specificity. --- */
+     Width is NOT !important so the native splitter can override it. */
   #main-window:has(#sidebar-main sidebar-main[expanded]) #sidebar-main {
     position: relative !important;
     left: 0 !important;
@@ -75,6 +134,14 @@
     background: var(--zen-bg-base) !important;
     z-index: 1000 !important;
     border-right: 1px solid var(--zen-border) !important;
+  }
+
+  /* Style the splitter grip */
+  #sidebar-launcher-splitter {
+    width: 4px !important;
+    background: var(--zen-border) !important;
+    border: none !important;
+    margin: 0 !important;
   }
 
   /* ===== COMMON STYLING (both modes) ===== */
