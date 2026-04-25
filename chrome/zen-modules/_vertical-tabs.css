@@ -8,104 +8,24 @@
    Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
    sidebar-main:not([expanded]) = Compact mode (autohide)
    sidebar-main[expanded]       = Full mode (always visible)
+
+   NOTE: sidebar.visibility = expand-on-hover is handled natively by
+   Firefox. We only STYLE the sidebar; we do NOT control the expand/
+   collapse animation so the native FLIP animation works correctly.
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
 
-  /* ===== COMPACT MODE: tabbar autohides ===== */
+  /* ===== COMPACT MODE: thin strip =====
+     We set width so the collapsed strip matches our Zen aesthetic,
+     but we avoid !important so Firefox's native expand-on-hover
+     animation can override it during the FLIP transition. */
   #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main {
-    position: absolute !important;
-    top: 0;
-    bottom: 0;
-    left: 0 !important;
-    right: auto !important;
-    z-index: 1000 !important;
-    background: var(--zen-bg-base) !important;
-    opacity: 1 !important;
-    width: var(--zen-tabbar-collapsed) !important;
-    min-width: var(--zen-tabbar-collapsed) !important;
-    max-width: var(--zen-tabbar-collapsed) !important;
-    border-right: 1px solid var(--zen-border) !important;
-    overflow: hidden !important;
-  }
-
-  /* --- Expand on hover: instant snap, no transition ---
-     Using #sidebar-main:hover directly instead of :has(#sidebar-main:hover)
-     on #main-window for better reliability when sidebars change state. --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover),
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]),
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover),
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]),
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) {
-    width: var(--zen-tabbar-width) !important;
-    min-width: var(--zen-tabbar-width) !important;
-    max-width: var(--zen-tabbar-width) !important;
-  }
-
-  /* --- Show tab labels on hover --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-label-container,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-label-container {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    max-width: none !important;
-    min-width: unset !important;
-    width: auto !important;
-  }
-
-  /* --- Full-mode tab layout on hover --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-content,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-content {
-    padding-inline: 8px !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-  }
-
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-background,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-background {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    border-radius: 6px !important;
-  }
-
-  /* Compact close button: show it */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-close-button,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-close-button {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    margin-inline-start: auto !important;
-    position: relative !important;
-    inset: auto !important;
-  }
-
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:hover .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabContextMenu:hover) .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(.tab-group-editor-panel[panelopen="true"]) .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#new-tab-button-popup:hover) .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tab-preview-panel[panelopen="true"]) .tab-icon-image,
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main:has(#tabgroup-preview-panel[panelopen="true"]) .tab-icon-image {
-    margin-inline-end: 6px !important;
+    background: var(--zen-bg-base);
+    border-right: 1px solid var(--zen-border);
+    width: var(--zen-tabbar-collapsed);
+    z-index: 1000;
+    opacity: 1;
   }
 
   /* --- Hide the native splitter in compact mode --- */
@@ -122,18 +42,11 @@
     opacity: 0 !important;
   }
 
-  /* ===== FULL MODE: tabbar always visible =====
-     Width is NOT !important so the native splitter can override it. */
+  /* ===== FULL MODE: tabbar always visible ===== */
   #main-window:has(#sidebar-main sidebar-main[expanded]) #sidebar-main {
-    position: relative !important;
-    left: 0 !important;
-    right: auto !important;
-    width: var(--zen-tabbar-width);
-    min-width: var(--zen-tabbar-collapsed);
-    max-width: none;
-    background: var(--zen-bg-base) !important;
-    z-index: 1000 !important;
-    border-right: 1px solid var(--zen-border) !important;
+    background: var(--zen-bg-base);
+    border-right: 1px solid var(--zen-border);
+    z-index: 1000;
   }
 
   /* Style the splitter grip */

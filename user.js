@@ -100,6 +100,8 @@ user_pref("browser.safebrowsing.downloads.remote.url", "");
 user_pref("sidebar.revamp", true);
 user_pref("sidebar.revamp.defaultLauncherVisible", false);
 user_pref("sidebar.position_start", true);
+user_pref("sidebar.animation.expand-on-hover.duration-ms", 130);
+user_pref("sidebar.animation.expand-on-hover.delay-duration-ms", 65);
 user_pref("sidebar.visibility", "expand-on-hover");
 user_pref("sidebar.main.tools", "history,bookmarks");
 user_pref("browser.sidebar.useCurrentTab", true);
