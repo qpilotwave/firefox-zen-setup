@@ -72,7 +72,7 @@ Two are `force_installed` via `ExtensionSettings`:
 | Geolocation | 3 | All geo providers disabled |
 | Quieter Fox | 13 | No addon recommendations, no Normandy/Shield, no crash reporting, no captive portal |
 | Safe Browsing | 2 | Remote download checks disabled; malware/phishing left at default |
-| Native Vertical Tabs & Sidebar (FF136+) | 12 | `sidebar.revamp=true`, visibility=`always-show`, launcher debloated, animations off |
+| Native Vertical Tabs & Sidebar (FF136+) | 12 | `sidebar.revamp=true`, visibility=`expand-on-hover`, launcher debloated, animations off |
 | Block Implicit Outbound | 5 | Prefetch, DNS prefetch, speculative connect all disabled |
 | DNS / DoH | 5 | TRR mode 3 (always), NextDNS URI, large DNS cache |
 | Location Bar / Search | 22 | ALL quick-suggest gates disabled, search suggestions off, maxRichResults=0 |

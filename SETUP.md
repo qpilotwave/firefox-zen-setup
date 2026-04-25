@@ -36,7 +36,7 @@ This config enables the **native** vertical tabs feature — no extensions neede
 ### What's pre-configured
 - `sidebar.revamp` = true (enables the modern sidebar)
 - `sidebar.main.tools` = history, bookmarks only (no AI Chat, no Synced Tabs bloat)
-- `sidebar.visibility` = always-show (sidebar stays open)
+- `sidebar.visibility` = expand-on-hover (sidebar expands on hover)
 - `sidebar.revamp.defaultLauncherVisible` = false (cleaner launcher)
 - Sidebar animations disabled
 - Width set to 280 px
