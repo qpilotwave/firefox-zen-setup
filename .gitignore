@@ -10,3 +10,4 @@ reference-mozilla-StaticPrefList.yaml
 *.swo
 *~
 .DS_Store
+firefox-screenshot/firefox-screenshot/userchrome_screenshot.png
