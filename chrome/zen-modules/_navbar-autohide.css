@@ -1,18 +1,21 @@
 /* ================================================================
    ZEN-MODE NAVBAR
    ================================================================
-   Navbar auto-hides in ALL modes. Slides up out of view, shows on
+   Navbar auto-hides in COMPACT mode. Slides up out of view, shows on
    top-edge hover. Uses "top" positioning (not transform) so ::after
    hover zone stays at the viewport edge and focus events work.
 
-   Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
-   sidebar-main:not([expanded]) = Compact mode
-   sidebar-main[expanded]       = Full mode
-   In BOTH modes the navbar is hidden unless hovered at top edge.
+   Mode detection uses :root[sidebar-expand-on-hover], which Firefox
+   sets when the sidebar is in expand-on-hover (compact) mode and
+   removes when the user toggles the sidebar to permanently expanded
+   (full) mode.
+
+   Compact mode  : :root[sidebar-expand-on-hover] present
+   Full mode     : :root[sidebar-expand-on-hover] absent
    ================================================================ */
 
-/* ===== ALL MODES: navbar autohides ===== */
-#main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+/* ===== COMPACT MODE: navbar autohides ===== */
+#main-window[sidebar-expand-on-hover]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -115,7 +118,7 @@
 }
 
 /* ===== FULL MODE: navbar always visible ===== */
-#main-window:has(#sidebar-main sidebar-main[expanded]):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) #navigator-toolbox {
+#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) #navigator-toolbox {
   position: relative !important;
   top: 0 !important;
   opacity: 1 !important;

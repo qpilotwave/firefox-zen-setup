@@ -6,35 +6,42 @@
    Vertical tabs are LOCKED to the LEFT side.
 
    Toggle: Native sidebar expand/collapse (Ctrl+Alt+Z or toolbar btn)
-   sidebar-main:not([expanded]) = Compact mode (autohide)
-   sidebar-main[expanded]       = Full mode (always visible)
+   :root[sidebar-expand-on-hover]  = Compact mode (autohide)
+   :root:not([sidebar-expand-on-hover]) = Full mode (always visible)
 
-   NOTE: sidebar.visibility = expand-on-hover is handled natively by
-   Firefox. We only STYLE the sidebar; we do NOT control the expand/
-   collapse animation so the native FLIP animation works correctly.
+   NOTE: Firefox sets/removes the `sidebar-expand-on-hover` attribute
+   on :root to track mode. We use it for reliable compact/full detection
+   because `sidebar-main[expanded]` flickers during hover expansion.
    ================================================================ */
 
 @media -moz-pref("sidebar.verticalTabs") {
 
   /* ===== COMPACT MODE: thin strip =====
-     We set width so the collapsed strip matches our Zen aesthetic,
-     but we avoid !important so Firefox's native expand-on-hover
-     animation can override it during the FLIP transition. */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])):not([inDOMFullscreen="true"]) #sidebar-main {
-    background: var(--zen-bg-base);
-    border-right: 1px solid var(--zen-border);
-    width: var(--zen-tabbar-collapsed);
+     Use clip-path to VISUALLY crop the sidebar to 4px while keeping
+     its actual geometry wide (~55px). This is critical because Firefox's
+     native expand-on-hover uses getMouseTargetRect() on the inner
+     sidebar-main element; if we force width to 4px, the hover hit area
+     becomes zero-width (subtracts 4px splitter) and hover stops working.
+     The clip-path only applies when genuinely collapsed; during expand/
+     collapse animations the attributes suppress it so FLIP works. */
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) {
+    clip-path: inset(0 calc(100% - 4px) 0 0);
+  }
+
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main {
+    background: var(--zen-bg-base) !important;
+    border-right: 1px solid var(--zen-border) !important;
     z-index: 1000;
     opacity: 1;
   }
 
   /* --- Hide the native splitter in compact mode --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded])) #sidebar-launcher-splitter {
+  #main-window[sidebar-expand-on-hover] #sidebar-launcher-splitter {
     display: none !important;
   }
 
   /* --- Fullscreen: completely hide sidebar --- */
-  #main-window:has(#sidebar-main sidebar-main:not([expanded]))[inFullscreen="true"] #sidebar-main {
+  #main-window[sidebar-expand-on-hover][inFullscreen="true"] #sidebar-main {
     width: 0 !important;
     min-width: 0 !important;
     max-width: 0 !important;
@@ -43,9 +50,9 @@
   }
 
   /* ===== FULL MODE: tabbar always visible ===== */
-  #main-window:has(#sidebar-main sidebar-main[expanded]) #sidebar-main {
-    background: var(--zen-bg-base);
-    border-right: 1px solid var(--zen-border);
+  #main-window:not([sidebar-expand-on-hover]) #sidebar-main {
+    background: var(--zen-bg-base) !important;
+    border-right: 1px solid var(--zen-border) !important;
     z-index: 1000;
   }
 
