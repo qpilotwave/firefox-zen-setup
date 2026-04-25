@@ -14,5 +14,11 @@
 }
 
 #tabbrowser-tabpanels {
-  background: transparent !important;
+  background: #000000 !important;
+}
+
+/* Solid black background for blank / new-tab pages */
+browser[type="content-primary"],
+browser[type="content"] {
+  background: #000000 !important;
 }
