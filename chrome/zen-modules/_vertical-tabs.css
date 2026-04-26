@@ -16,21 +16,36 @@
 
 @media -moz-pref("sidebar.verticalTabs") {
 
-  /* ===== COMPACT MODE: thin strip =====
-     Use clip-path to VISUALLY crop the sidebar to 4px while keeping
-     its actual geometry wide (~55px). This is critical because Firefox's
-     native expand-on-hover uses getMouseTargetRect() on the inner
-     sidebar-main element; if we force width to 4px, the hover hit area
-     becomes zero-width (subtracts 4px splitter) and hover stops working.
-     The clip-path only applies when genuinely collapsed; during expand/
-     collapse animations the attributes suppress it so FLIP works. */
+  /* ===== COMPACT MODE: collapsed sidebar =====
+     The outer XUL box is constrained to 4px wide so the sidebar appears
+     as a thin strip. The inner <sidebar-main> custom element keeps its
+     ~55px geometry via min-width so Firefox's native getMouseTargetRect()
+     hover detection continues to work (it queries the inner element).
+
+     We do NOT use !important on width so the native FLIP animation's
+     inline styles can override it during expand/collapse transitions.
+
+     The collapsed state is transparent; background only shows when
+     expanded or animating, matching native Firefox behavior. */
   #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) {
-    clip-path: inset(0 calc(100% - 4px) 0 0);
+    width: 4px;
+    background: transparent !important;
+    border-right: none !important;
   }
 
-  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main {
+  /* Keep inner element wide for native hover detection */
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) sidebar-main {
+    min-width: 55px !important;
+  }
+
+  /* Expanded / animating: dark background overlay */
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:is([sidebar-launcher-expanded],[sidebar-ongoing-animations]) {
     background: var(--zen-bg-base) !important;
     border-right: 1px solid var(--zen-border) !important;
+  }
+
+  /* Always keep sidebar above content in compact mode */
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main {
     z-index: 1000;
     opacity: 1;
   }
