@@ -119,6 +119,11 @@
     font-weight: 500 !important;
   }
 
+  /* Tab bar container: add top margin for spacing below navbar */
+  #vertical-tabs {
+    margin-top: 1.5rem !important;
+  }
+
   /* Tab styling within vertical sidebar */
   #sidebar-main .tabbrowser-tab {
     min-height: 36px !important;
@@ -128,6 +133,15 @@
     color: var(--zen-text) !important;
     border: none !important;
     box-shadow: none !important;
+  }
+
+  /* Remove left/right gap from tab rectangles by offsetting the tab's
+     native XUL padding with negative margin on the inner tab-stack.
+     The <tab> element has intrinsic 8px padding that CSS can't override,
+     so we pull the content outward to compensate. */
+  #sidebar-main .tabbrowser-tab .tab-stack {
+    margin-left: -8px !important;
+    margin-right: -8px !important;
   }
 
   /* Active/selected tab: clearly visible darker background, no accent border */
