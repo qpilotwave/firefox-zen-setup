@@ -110,10 +110,6 @@ user_pref("browser.sidebar.width", 280);
 user_pref("browser.sidebar.panels.animations", false);
 user_pref("browser.tabs.allowAnimationPreference", false);
 user_pref("browser.tabs.animate", false);
-user_pref("browser.tabs.tabMinWidth", 76);
-user_pref("browser.tabs.tabMaxWidth", 160);
-user_pref("browser.tabs.tabClipWidth", 110);
-user_pref("browser.ctrlTab.previews", false);
 user_pref("browser.bookmarks.showMobileBookmarks", false);
 user_pref("browser.bookmarks.showDesktopBookmarks", false);
 
@@ -129,7 +125,7 @@ user_pref("network.proxy.socks_remote_dns", true);
 user_pref("network.file.disable_unc_paths", true);
 user_pref("network.gio.supported-protocols", "");
 user_pref("network.trr.mode", 3);
-user_pref("network.trr.uri", "https://dns.nextdns.io");
+user_pref("network.trr.uri", "https://dns.adguard-dns.com/dns-query");
 user_pref("network.dnsCacheEntries", 10000);
 user_pref("network.dnsCacheExpiration", 3600);
 
@@ -268,7 +264,7 @@ user_pref("apz.overscroll.enabled", false);
 user_pref("browser.compactmode.show", true);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("browser.profiles.enabled", true);
-user_pref("layout.css.prefers-color-scheme.content-override", 2);
+// (removed duplicate — see Dark Mode section below)
 
 /*** [SECTION 2000]: PLUGINS / MEDIA / WEBRTC ***/
 user_pref("media.peerconnection.ice.proxy_only_if_behind_proxy", true);

@@ -136,29 +136,19 @@ Uses **Approach D** (native sidebar expand/collapse + forced thin strip):
 
 ## 5. Notable Findings & Observations
 
-### A. Duplicate Preference
-```javascript
-// Line 269
-user_pref("layout.css.prefers-color-scheme.content-override", 2);
-// Line 371
-user_pref("layout.css.prefers-color-scheme.content-override", 0);
-```
-The second (`0` = force dark) wins because it appears later. The first line should be removed to avoid confusion.
+### ~~A. Duplicate Preference~~ ✅ FIXED 2026-04-26
+~~The duplicate `layout.css.prefers-color-scheme.content-override` has been removed. The single instance (value 0 = force dark) at the Dark Mode section is now the only one.~~
 
-### B. DNS-over-HTTPS Conflict
-- `user.js` sets `network.trr.uri` to **NextDNS**.
-- `policies.json` locks DoH to **AdGuard DNS**.
+### ~~B. DNS-over-HTTPS Conflict~~ ✅ FIXED 2026-04-26
+~~The conflict between `user.js` (NextDNS) and `policies.json` (AdGuard DNS) has been resolved. Both now use AdGuard DNS — `user.js` was aligned to match the policy, since the policy's `Locked: true` already overrode it.~~
 
-Because the policy is `"Locked": true`, the AdGuard setting is enforced and the NextDNS pref in `user.js` has no effect.
+### ~~C. `DisableAccounts` Inconsistency~~ ✅ FIXED 2026-04-26
+~~`DisableAccounts` in `policies.json` changed from `false` to `true`, fully locking Mozilla Accounts at the policy level.~~
 
-### C. `DisableAccounts` Inconsistency in policies.json
-```json
-"DisableFirefoxAccounts": true,
-"DisableAccounts": false
-```
-The newer `DisableAccounts` policy is left `false`, which means Mozilla Accounts UI is not fully hard-locked at the policy level (though `user.js` disables it via `identity.fxaccounts.enabled = false`).
+### ~~G. Dead-Weight Horizontal-Tab Prefs~~ ✅ FIXED 2026-04-26
+~~Removed `browser.tabs.tabMinWidth`, `tabMaxWidth`, `tabClipWidth`, and `browser.ctrlTab.previews` — these have no effect when native vertical tabs are enabled.~~
 
-### D. Misleading `user-overrides.js` Documentation
+### Current Issues
 Both `user.js` comments and `SETUP.md` tell users to create `user-overrides.js` for custom tweaks. **Firefox does not read this file.** The arkenfox `updater.sh` script is required to merge it, but this project does not ship that script. This documentation is misleading for users who expect it to work out-of-the-box.
 
 ### E. Fragile Compact Mode (4 px Sidebar Strip)

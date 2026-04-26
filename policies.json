@@ -20,7 +20,7 @@
     "DisableDeveloperTools": false,
     "DisableFirefoxScreenshots": true,
     "DisablePocket": true,
-    "DisableAccounts": false,
+    "DisableAccounts": true,
     "FirefoxHome": {
       "Search": true,
       "TopSites": false,
