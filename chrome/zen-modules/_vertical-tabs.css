@@ -28,14 +28,14 @@
      The collapsed state is transparent; background only shows when
      expanded or animating, matching native Firefox behavior. */
   #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) {
-    width: 4px;
+    width: 0px;
     background: transparent !important;
     border-right: none !important;
   }
 
   /* Keep inner element wide for native hover detection */
   #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) sidebar-main {
-    min-width: 55px !important;
+    min-width: 1.5rem !important;
   }
 
   /* Expanded / animating: dark background overlay */

@@ -20,7 +20,7 @@
   /* --- Dimensions --- */
   --zen-navbar-height:     40px;
   --zen-tabbar-width:      250px;
-  --zen-tabbar-collapsed:  4px;
+  --zen-tabbar-collapsed:  0px;
   --zen-sidebar-width:     280px;
   --zen-border-radius:     10px;
   --zen-content-margin:    6px;
