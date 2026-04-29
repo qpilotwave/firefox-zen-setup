@@ -29,11 +29,6 @@ body {
   display: none !important;
 }
 
-/* Hide bookmark bar */
-#PersonalToolbar {
-  display: none !important;
-}
-
 /* --- Hide horizontal tab bar when native vertical tabs are on --- */
 @media -moz-pref("sidebar.verticalTabs") {
   #TabsToolbar {
@@ -45,7 +40,7 @@ body {
 #tab-notification-deck {
   position: absolute !important;
   z-index: 9000 !important;
-  top: var(--zen-navbar-height) !important;
+  top: var(--zen-toolbox-total-height) !important;
   right: 0 !important;
   border-radius: var(--zen-border-radius) !important;
 }

@@ -25,6 +25,7 @@
 
 @import url("zen-modules/_variables.css");
 @import url("zen-modules/_base.css");
+@import url("zen-modules/_bookmark-bar.css");
 @import url("zen-modules/_vertical-tabs.css");
 @import url("zen-modules/_navbar-autohide.css");
 @import url("zen-modules/_sidebar-separator.css");

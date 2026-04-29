@@ -19,9 +19,9 @@
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
-    height: var(--zen-navbar-height) !important;
-    min-height: var(--zen-navbar-height) !important;
-    max-height: var(--zen-navbar-height) !important;
+    height: var(--zen-toolbox-total-height) !important;
+    min-height: var(--zen-toolbox-total-height) !important;
+    max-height: var(--zen-toolbox-total-height) !important;
   }
 
   /* --- Position toolbox absolutely at top --- */
@@ -30,7 +30,7 @@
     left: 0;
     right: 0;
     /* Hidden: moved up by exactly its height (+1px buffer) */
-    top: calc(-1 * var(--zen-navbar-height) - 1px);
+    top: calc(-1 * var(--zen-toolbox-total-height) - 1px);
     z-index: 999 !important;
     background: var(--zen-bg-base) !important;
     border-bottom: 1px solid var(--zen-border) !important;
@@ -56,7 +56,7 @@
      keep navbar hidden unless the toolbox itself is hovered/focused. --- */
   &:has(#sidebar-main:hover):not(:has(#navigator-toolbox:hover)):not(:has(#navigator-toolbox:focus-within)) {
     #navigator-toolbox {
-      top: calc(-1 * var(--zen-navbar-height) - 1px);
+      top: calc(-1 * var(--zen-toolbox-total-height) - 1px);
       opacity: 0;
       transition-delay: var(--zen-hide-delay) !important;
     }

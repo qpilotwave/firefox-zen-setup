@@ -19,6 +19,8 @@
 
   /* --- Dimensions --- */
   --zen-navbar-height:     40px;
+  --zen-bookmark-bar-height: 28px;
+  --zen-toolbox-total-height: var(--zen-navbar-height);
   --zen-tabbar-width:      250px;
   --zen-tabbar-collapsed:  0px;
   --zen-sidebar-width:     280px;
@@ -41,4 +43,9 @@
     --zen-text:         #e0e0e0;
     --zen-text-muted:   #888888;
   }
+}
+
+/* Expand toolbox height when bookmark bar is visible */
+:root:has(#PersonalToolbar:not([collapsed="true"])) {
+  --zen-toolbox-total-height: calc(var(--zen-navbar-height) + var(--zen-bookmark-bar-height));
 }
