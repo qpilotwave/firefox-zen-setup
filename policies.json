@@ -114,12 +114,12 @@
     },
     "ExtensionSettings": {
       "userchrome-toggle-extended@n2ezr.ru": {
-        "installation_mode": "force_installed",
+        "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/userchrome-toggle-extended/latest.xpi",
         "updates_disabled": false
       },
       "uBlock0@raymondhill.net": {
-        "installation_mode": "force_installed",
+        "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi",
         "updates_disabled": false
       }
