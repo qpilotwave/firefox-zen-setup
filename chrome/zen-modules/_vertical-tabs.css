@@ -55,15 +55,6 @@
     display: none !important;
   }
 
-  /* --- Fullscreen: completely hide sidebar --- */
-  #main-window[sidebar-expand-on-hover][inFullscreen="true"] #sidebar-main {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    border: none !important;
-    opacity: 0 !important;
-  }
-
   /* ===== FULL MODE: tabbar always visible ===== */
   #main-window:not([sidebar-expand-on-hover]) #sidebar-main {
     background: var(--zen-bg-base) !important;

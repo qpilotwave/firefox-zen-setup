@@ -15,7 +15,7 @@
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
-#main-window[sidebar-expand-on-hover]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+#main-window[sidebar-expand-on-hover]:is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -118,15 +118,54 @@
 }
 
 /* ===== FULL MODE: navbar always visible ===== */
-#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) #navigator-toolbox {
+#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""]) #navigator-toolbox {
   position: relative !important;
   top: 0 !important;
   opacity: 1 !important;
 }
 
 /* --- Fullscreen: fixed position --- */
-#main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""])[inFullscreen="true"] #navigator-toolbox {
+#main-window:is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""])[inFullscreen="true"] #navigator-toolbox {
   position: fixed !important;
+}
+
+/* ===== FULL MODE + FULLSCREEN: force complete navbar always visible =====
+   Firefox's native fullscreen CSS hides nav-bar buttons and constrains
+   toolbox width. Override all of it so the full toolbar stays visible. */
+#main-window:not([sidebar-expand-on-hover])[inFullscreen="true"]:not([customizing=""]) #navigator-toolbox {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  z-index: 999 !important;
+}
+
+#main-window:not([sidebar-expand-on-hover])[inFullscreen="true"]:not([customizing=""]) #nav-bar {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: var(--zen-navbar-height) !important;
+  max-height: var(--zen-navbar-height) !important;
+}
+
+#main-window:not([sidebar-expand-on-hover])[inFullscreen="true"]:not([customizing=""]) #nav-bar .toolbarbutton-1,
+#main-window:not([sidebar-expand-on-hover])[inFullscreen="true"]:not([customizing=""]) #nav-bar toolbarbutton {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#main-window:not([sidebar-expand-on-hover])[inFullscreen="true"]:not([customizing=""]) #urlbar {
+  position: relative !important;
+  top: auto !important;
 }
 
 /* ===== CUSTOMIZING MODE: always show ===== */
