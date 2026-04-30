@@ -107,14 +107,16 @@
   }
 
   /* --- Keep critical menu buttons accessible when navbar is hidden --- */
+  /* The close button lives in #TabsToolbar, not in #nav-bar,
+     so we target it by class directly (not scoped to nav-bar) */
   #nav-bar #PanelUI-menu-button,
   #nav-bar #unified-extensions-button,
-  #nav-bar .titlebar-close {
+  .titlebar-button.titlebar-close {
     position: fixed !important;
     top: 4px;
     z-index: 10001 !important;
   }
-  #nav-bar .titlebar-close { right: 4px !important; }
+  .titlebar-button.titlebar-close { right: 4px !important; }
   #nav-bar #PanelUI-menu-button { right: 49px !important; }
   #nav-bar #unified-extensions-button { right: 93px !important; }
 
