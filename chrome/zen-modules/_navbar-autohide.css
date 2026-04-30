@@ -15,7 +15,7 @@
    ================================================================ */
 
 /* ===== COMPACT MODE: navbar autohides ===== */
-#main-window[sidebar-expand-on-hover]:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) {
+#main-window[sidebar-expand-on-hover]:is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""]) {
 
   /* Enforce fixed height so we can position precisely */
   #navigator-toolbox {
@@ -40,6 +40,8 @@
     transition:
       top var(--zen-transition) var(--zen-hide-delay),
       opacity var(--zen-transition) var(--zen-hide-delay) !important;
+    /* Override native fullscreen negative margin */
+    margin-top: 0 !important;
   }
 
   /* --- Show navbar on hover / focus --- */
@@ -104,6 +106,30 @@
     }
   }
 
+  /* --- Keep critical menu buttons accessible when navbar is hidden --- */
+  #nav-bar #PanelUI-menu-button,
+  #nav-bar #unified-extensions-button,
+  #nav-bar .titlebar-close {
+    position: fixed !important;
+    top: 4px;
+    z-index: 10001 !important;
+  }
+  #nav-bar .titlebar-close { right: 4px !important; }
+  #nav-bar #PanelUI-menu-button { right: 49px !important; }
+  #nav-bar #unified-extensions-button { right: 93px !important; }
+
+  /* Reserve right-side space so flex items don't overlap fixed buttons */
+  #nav-bar {
+    padding-right: 135px !important;
+  }
+
+  /* --- Ensure bookmark bar is visible in fullscreen when toggled on --- */
+  #PersonalToolbar:not([collapsed]) {
+    visibility: visible !important;
+    height: var(--zen-bookmark-bar-height) !important;
+    min-height: var(--zen-bookmark-bar-height) !important;
+  }
+
   /* --- Navbar height enforcement --- */
   #nav-bar {
     min-height: var(--zen-navbar-height) !important;
@@ -118,15 +144,18 @@
 }
 
 /* ===== FULL MODE: navbar always visible ===== */
-#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""]) #navigator-toolbox {
+#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""]) #navigator-toolbox {
   position: relative !important;
   top: 0 !important;
+  margin-top: 0 !important;
   opacity: 1 !important;
 }
 
-/* --- Fullscreen: fixed position --- */
-#main-window:is([sizemode="normal"],[sizemode="maximized"]):not([customizing=""])[inFullscreen="true"] #navigator-toolbox {
-  position: fixed !important;
+/* --- Full mode: bookmark bar visible when toggled on (override native fullscreen hide) --- */
+#main-window:not([sidebar-expand-on-hover]):is([sizemode="normal"],[sizemode="maximized"],[sizemode="fullscreen"]):not([customizing=""]) #PersonalToolbar:not([collapsed]) {
+  visibility: visible !important;
+  height: var(--zen-bookmark-bar-height) !important;
+  min-height: var(--zen-bookmark-bar-height) !important;
 }
 
 /* ===== CUSTOMIZING MODE: always show ===== */

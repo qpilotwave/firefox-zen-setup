@@ -35,7 +35,16 @@
 
   /* Keep inner element wide for native hover detection */
   #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) sidebar-main {
-    min-width: 1.5rem !important;
+    min-width: 0.5rem !important;
+  }
+
+  /* Fallback: if sidebar-ongoing-animations gets stuck without expanded,
+     force it collapsed so it doesn't block the viewport. */
+  #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"])
+    #sidebar-main[sidebar-ongoing-animations]:not([sidebar-launcher-expanded]) {
+      width: 0px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
   }
 
   /* Expanded / animating: dark background overlay */
@@ -53,15 +62,6 @@
   /* --- Hide the native splitter in compact mode --- */
   #main-window[sidebar-expand-on-hover] #sidebar-launcher-splitter {
     display: none !important;
-  }
-
-  /* --- Fullscreen: completely hide sidebar --- */
-  #main-window[sidebar-expand-on-hover][inFullscreen="true"] #sidebar-main {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    border: none !important;
-    opacity: 0 !important;
   }
 
   /* ===== FULL MODE: tabbar always visible ===== */

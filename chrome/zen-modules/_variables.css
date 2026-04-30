@@ -46,6 +46,6 @@
 }
 
 /* Expand toolbox height when bookmark bar is visible */
-:root:has(#PersonalToolbar:not([collapsed="true"])) {
+:root:has(#PersonalToolbar:not([collapsed])) {
   --zen-toolbox-total-height: calc(var(--zen-navbar-height) + var(--zen-bookmark-bar-height));
 }
