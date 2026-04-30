@@ -35,7 +35,7 @@
 
   /* Keep inner element wide for native hover detection */
   #main-window[sidebar-expand-on-hover]:not([inDOMFullscreen="true"]) #sidebar-main:not([sidebar-launcher-expanded]):not([sidebar-ongoing-animations]) sidebar-main {
-    min-width: 0.5rem !important;
+    min-width: 1.5rem !important;
   }
 
   /* Fallback: if sidebar-ongoing-animations gets stuck without expanded,
